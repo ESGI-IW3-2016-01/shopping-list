@@ -16,7 +16,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public abstract class ApiTask extends AsyncTask<Void, Long, JSONObject> {
+public abstract class AbstractApiTask extends AsyncTask<Void, Long, JSONObject> {
+
     protected IHttpRequestListener listener;
 
     public void setListener(IHttpRequestListener listener) {

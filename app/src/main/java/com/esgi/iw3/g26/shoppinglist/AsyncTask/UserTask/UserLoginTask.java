@@ -1,4 +1,4 @@
-package com.esgi.iw3.g26.shoppinglist.AsyncTask;
+package com.esgi.iw3.g26.shoppinglist.AsyncTask.UserTask;
 
 import android.util.Log;
 
@@ -11,15 +11,10 @@ import org.json.JSONObject;
 // Login failed
 // {"code":"3","msg":"Login failed check your credentials"}
 
-public class UserLoginTask extends ApiTask {
-
-    private final String mEmail;
-    private final String mPassword;
-    private final static String USER_LOGIN_URL = "http://appspaces.fr/esgi/shopping_list/account/login.php";
+public class UserLoginTask extends AbstractUserTask {
 
     public UserLoginTask(String email, String password) {
-        mEmail = email;
-        mPassword = password;
+        super(email, password);
     }
 
     @Override

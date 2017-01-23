@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -30,7 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.esgi.iw3.g26.shoppinglist.AsyncTask.UserLoginTask;
+import com.esgi.iw3.g26.shoppinglist.AsyncTask.UserTask.UserLoginTask;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
 
 import org.json.JSONObject;
