@@ -1,8 +1,7 @@
 package com.esgi.iw3.g26.shoppinglist.Entity;
 
-/**
- * Created by Antoine on 11/11/2016.
- */
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public enum ResultCode {
 
@@ -26,12 +25,26 @@ public enum ResultCode {
 
     /**
      * Constructor
+     *
      * @param value
      * @param description
      */
     ResultCode(int value, String description) {
         this.value = value;
         this.description = description;
+    }
+
+    ResultCode(JSONObject jsonObject) {
+        try {
+            this.value = jsonObject.has("code") ? jsonObject.getInt("code") : 5;
+            this.description = jsonObject.has("msg") ? jsonObject.getString("msg") : "OK";
+        } catch (JSONException e) {
+
+        }
+    }
+
+    ResultCode(int value) {
+
     }
 
     public int getValue() {
@@ -53,5 +66,12 @@ public enum ResultCode {
     @Override
     public String toString() {
         return this.description;
+    }
+
+    public JSONObject toJSONObject() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("code", this.value);
+
+        return object;
     }
 }
