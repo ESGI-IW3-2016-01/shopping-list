@@ -23,9 +23,9 @@ public class UserSubscribeTask extends AbstractUserTask {
     protected JSONObject doInBackground(Void... params) {
         String queryParameters = "?" + "email" + "=" + this.mEmail +
                 "&" + "password" + "=" + this.mPassword +
-                "&" + "firstName" + "=" + this.mFirstName;
+                "&" + "firstname" + "=" + this.mFirstName;
         if (null != this.mLastName) {
-            queryParameters += "&" + "lastName" + "=" + this.mLastName;
+            queryParameters += "&" + "lastname" + "=" + this.mLastName;
         }
         // API call
         Log.d("user:subscribe", USER_SUBSCRIBE_URL + queryParameters);

@@ -1,5 +1,9 @@
 package com.esgi.iw3.g26.shoppinglist.Entity;
 
+import android.util.Log;
+
+import org.json.JSONObject;
+
 /**
  * Created by Antoine on 11/11/2016.
  */
@@ -15,6 +19,27 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public User(String firstName, String lastName, String email, String token) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.token = token;
+    }
+
+    public User(JSONObject object) {
+        try {
+            if(object.has("result")) {
+                object = object.getJSONObject("result");
+            }
+            this.firstName = object.getString("firstname");
+            this.lastName = object.getString("lastname");
+            this.email = object.getString("email");
+            this.token = object.getString("token");
+        } catch (Exception e) {
+            Log.d("user:instantiation",e.getMessage());
+        }
     }
 
     public String getFirstName() {

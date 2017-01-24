@@ -2,9 +2,6 @@ package com.esgi.iw3.g26.shoppinglist;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
@@ -16,7 +13,6 @@ import org.json.JSONObject;
  */
 
 public class ShoppingListActivity extends ListActivity implements IHttpRequestListener {
-
 
     TextView content;
     ListView listView;
@@ -37,8 +33,6 @@ public class ShoppingListActivity extends ListActivity implements IHttpRequestLi
 
         setListAdapter(adapter);
     }
-
-
 
 
     @Override
