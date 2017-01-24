@@ -6,7 +6,13 @@
     <string name="prompt_password">Password</string>
     <string name="prompt_firstName">First name</string>
     <string name="prompt_lastName">Last name (optional)</string>
+    <string name="prompt_price">Price</string>
+    <string name="prompt_numberProduct">Product</string>
+    <string name="prompt_nameProduct">Name product</string>
     <string name="action_sign_in">Sign in</string>
+    <string name="action_save">Save</string>
+    <string name="prompt_nameList">List name</string>
+    <string name="action_createList">Add list</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_subscribe">Subscribe</string>
     <string name="error_invalid_email">This email address is invalid</string>
