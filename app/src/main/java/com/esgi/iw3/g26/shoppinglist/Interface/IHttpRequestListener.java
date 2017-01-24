@@ -10,6 +10,6 @@ public interface IHttpRequestListener {
 
     void onFailure(String message);
 
-    void onApiError(String message);
+    void onApiError(JSONObject object);
 
 }
