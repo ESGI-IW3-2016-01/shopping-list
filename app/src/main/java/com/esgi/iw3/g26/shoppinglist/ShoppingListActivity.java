@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 public class ShoppingListActivity extends ListActivity {
 
-
     TextView content;
 
     @Override
@@ -18,11 +17,5 @@ public class ShoppingListActivity extends ListActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
-
-
     }
-
-
-
 }
