@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -30,7 +31,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.UserTask.UserLoginTask;
+import com.esgi.iw3.g26.shoppinglist.Entity.User;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
+import com.esgi.iw3.g26.shoppinglist.ShoppingListActivity;
 
 import org.json.JSONObject;
 
@@ -66,6 +69,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        this.session = new UserSession(getApplicationContext());
+
+        if (session.isUserLoggedIn()) {
+            Log.d(this.getLocalClassName(),"user session exists");
+            this.redirectToShoppingListActivity();
+        }
+        Log.d(this.getLocalClassName(),"user session does not exists");
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -167,11 +178,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
+//        if (TextUtils.isEmpty(email)) {
+//            mEmailView.setError(getString(R.string.error_field_required));
+//            focusView = mEmailView;
+//            cancel = true;
+        if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -275,20 +286,21 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
     @Override
     public void onSuccess(JSONObject object) {
-        Log.d("onSuccess", object.toString());
-        //TODO: Créer une session
-        //TODO: diriger vers la main activity
+        Log.d("activity:login:success", object.toString());
+        User user = new User(object);
+        session.createUserLoginSession(user);
+        this.redirectToShoppingListActivity();
     }
 
     @Override
     public void onFailure(String message) {
-        Log.d("onFailure",message);
+        Log.d("activity:login:failure", message);
         //TODO: Toast
     }
 
     @Override
-    public void onApiError(String message) {
-        Log.d("onApiError", message);
+    public void onApiError(JSONObject object) {
+        Log.d("activity:login:api", object.toString());
         //TODO: Toast
     }
 
@@ -311,5 +323,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         int IS_PRIMARY = 1;
     }
 
+    private void redirectToShoppingListActivity() {
+        Intent i = new Intent(getApplicationContext(), ShoppingListActivity.class);
+        startActivity(i);
+    }
 }
 
