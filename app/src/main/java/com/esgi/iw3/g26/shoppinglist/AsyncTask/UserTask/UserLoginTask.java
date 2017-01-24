@@ -29,13 +29,13 @@ public class UserLoginTask extends AbstractUserTask {
     protected void onPostExecute(JSONObject response) {
         try {
             int code = response.has("code") ? response.getInt("code") : 1;
-            if (code == 0) { // Login successfull
+            if (code == 0) { // Login successful
                 this.listener.onSuccess(response);
-                //TODO Save user information and token
-            } else {
-                this.listener.onApiError("error");
+            } else { // Login Failed or Api Error
+                this.listener.onApiError(response);
             }
-        } catch (JSONException e) {
+        } catch (Exception e) { // Other errors
+            Log.d("user:login:error", e.getMessage());
             this.listener.onFailure(e.getMessage());
         }
     }

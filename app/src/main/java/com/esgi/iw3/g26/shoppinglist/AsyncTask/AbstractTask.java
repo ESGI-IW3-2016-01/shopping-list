@@ -53,11 +53,9 @@ public abstract class AbstractTask extends AsyncTask<Void, Long, JSONObject> {
             InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
             response = convertInputStreamToString(inputStream);
             object = new JSONObject(response);
-            Log.d("getUrl", response);
         } catch (Exception e) {
-            response = e.getMessage();
-            Log.d(e.getClass().toString(), response);
-            this.listener.onFailure(response);
+            Log.d(this.getClass().getName(), e.getMessage());
+            this.listener.onFailure(e.getMessage());
         }
         return object;
     }
