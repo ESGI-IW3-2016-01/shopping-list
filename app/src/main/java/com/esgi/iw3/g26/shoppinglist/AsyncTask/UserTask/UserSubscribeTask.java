@@ -28,7 +28,7 @@ public class UserSubscribeTask extends AbstractUserTask {
             queryParameters += "&" + "lastName" + "=" + this.mLastName;
         }
         // API call
-        Log.d("Sub:doInBackground", USER_SUBSCRIBE_URL + queryParameters);
+        Log.d("user:subscribe", USER_SUBSCRIBE_URL + queryParameters);
         return getURL(USER_SUBSCRIBE_URL + queryParameters);
     }
 

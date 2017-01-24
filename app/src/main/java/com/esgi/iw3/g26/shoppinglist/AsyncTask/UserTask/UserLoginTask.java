@@ -21,7 +21,7 @@ public class UserLoginTask extends AbstractUserTask {
     protected JSONObject doInBackground(Void... params) {
         String queryParameters = "?" + "email" + "=" + this.mEmail + "&" + "password" + "=" + this.mPassword;
         // API call
-        Log.d("Login:doInBackground", USER_LOGIN_URL + queryParameters);
+        Log.d("user:login", USER_LOGIN_URL + queryParameters);
         return this.getURL(USER_LOGIN_URL + queryParameters);
     }
 

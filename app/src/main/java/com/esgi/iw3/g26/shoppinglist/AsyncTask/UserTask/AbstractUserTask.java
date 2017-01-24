@@ -1,11 +1,8 @@
 package com.esgi.iw3.g26.shoppinglist.AsyncTask.UserTask;
 
-import com.esgi.iw3.g26.shoppinglist.AsyncTask.AbstractApiTask;
+import com.esgi.iw3.g26.shoppinglist.AsyncTask.AbstractTask;
 
-/**
- * Created by antoine on 23/01/2017.
- */
-public abstract class AbstractUserTask extends AbstractApiTask {
+public abstract class AbstractUserTask extends AbstractTask {
 
     protected final static String USER_LOGIN_URL = "http://appspaces.fr/esgi/shopping_list/account/login.php";
     protected final static String USER_SUBSCRIBE_URL = "http://appspaces.fr/esgi/shopping_list/account/subscribe.php";
