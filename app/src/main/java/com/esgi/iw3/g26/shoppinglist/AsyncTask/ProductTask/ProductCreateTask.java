@@ -37,7 +37,7 @@ public class ProductCreateTask extends AbstractProductTask {
     protected JSONObject doInBackground(Void... params) {
         String queryParameters =
                 "?" + "token" + "=" + this.token +
-                        "&" + "shoppingListId" + "=" + this.shoppingListId +
+                        "&" + "shopping_list_id" + "=" + this.shoppingListId +
                         "&" + "name" + "=" + this.name +
                         "&" + "quantity" + "=" + this.quantity +
                         "&" + "price" + "=" + this.price;

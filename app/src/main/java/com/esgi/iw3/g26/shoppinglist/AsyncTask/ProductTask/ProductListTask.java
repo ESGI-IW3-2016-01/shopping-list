@@ -19,7 +19,7 @@ public class ProductListTask extends AbstractProductTask {
     protected JSONObject doInBackground(Void... params) {
         String queryParameters =
                 "?" + "token" + "=" + this.token +
-                        "&" + "shoppingListId" + "=" + this.shoppingListId;
+                        "&" + "shopping_list_id" + "=" + this.shoppingListId;
 
         // API call
         Log.d("product:list", PRODUCT_LIST_URL + queryParameters);
