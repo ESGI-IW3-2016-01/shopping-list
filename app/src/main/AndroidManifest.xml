@@ -29,7 +29,7 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".ShoppingListActivity"
+            android:name=".ListActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <!--TODO: changer le nom et le theme-->

@@ -33,7 +33,6 @@ import android.widget.TextView;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.UserTask.UserLoginTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.User;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
-import com.esgi.iw3.g26.shoppinglist.ShoppingListActivity;
 
 import org.json.JSONObject;
 
@@ -324,7 +323,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     }
 
     private void redirectToShoppingListActivity() {
-        Intent i = new Intent(getApplicationContext(), ShoppingListActivity.class);
+        Intent i = new Intent(getApplicationContext(), ListActivity.class);
         startActivity(i);
     }
 }
