@@ -19,6 +19,10 @@ public class User implements IHashMapSerialize {
     private String email;
     private String token;
 
+    private final static String USER_FIRST_NAME_KEY = "firstname";
+    private final static String USER_LAST_NAME_KEY = "lastname";
+    private final static String USER_EMAIL_KEY = "email";
+
     public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;

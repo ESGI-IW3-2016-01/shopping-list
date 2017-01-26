@@ -19,6 +19,10 @@ public class Product implements IHashMapSerialize {
     private Integer quantity;
     private Double price;
 
+    public static final String PRODUCT_NAME_KEY = "name";
+    public static final String PRODUCT_QUANTITY_KEY = "quantity";
+    public static final String PRODUCT_PRICE_KEY = "price";
+
     /**
      * Constructor
      * @param id
