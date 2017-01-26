@@ -4,6 +4,10 @@ import com.esgi.iw3.g26.shoppinglist.Interface.IHashMapSerialize;
 
 import java.util.HashMap;
 
+import android.util.Log;
+
+import org.json.JSONObject;
+
 /**
  * Created by Antoine on 11/11/2016.
  */
@@ -27,6 +31,20 @@ public class Product implements IHashMapSerialize {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public Product(JSONObject object) {
+        try {
+            if(object.has("result")) {
+                object = object.getJSONObject("result");
+            }
+            this.id = object.getInt("shopping_list_id");
+            this.name = object.getString("name");
+            this.quantity = object.getInt("quantity");
+            this.price = object.getDouble("price");
+        } catch (Exception e) {
+            Log.d("product:instantiation",e.getMessage());
+        }
     }
 
     public Integer getId() {

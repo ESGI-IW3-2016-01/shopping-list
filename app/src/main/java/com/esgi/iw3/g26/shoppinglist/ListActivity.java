@@ -25,6 +25,7 @@ public class ListActivity extends Activity implements IHttpRequestListener {
     Button button;
 
     private ShoppingListCreateTask createListTask = null;
+    private UserSession session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,9 @@ public class ListActivity extends Activity implements IHttpRequestListener {
 
                 String nameList = textView.getText().toString();
 
-                String token = "123145644897";
+                session = new UserSession(getApplicationContext());
+                String token = session.getToken();
+
                 createListTask = new ShoppingListCreateTask(token, nameList);
                 createListTask.execute();
 

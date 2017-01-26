@@ -2,7 +2,9 @@ package com.esgi.iw3.g26.shoppinglist;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductCreateTask;
+import com.esgi.iw3.g26.shoppinglist.Entity.Product;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
 
 import org.json.JSONObject;
@@ -26,6 +29,7 @@ public class ProductActivity extends Activity implements IHttpRequestListener {
     EditText editText1, editText2;
 
     private ProductCreateTask createProductTask = null;
+    private UserSession session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,9 @@ public class ProductActivity extends Activity implements IHttpRequestListener {
                 double price = Double.parseDouble(editText1.getText().toString());
 
 
-                String token = "123145644897";
+                session = new UserSession(getApplicationContext());
+                String token = session.getToken();
+
                 String listId = "123";
                 createProductTask = new ProductCreateTask(token, listId,  nameList, quantity, price);
                 createProductTask.execute();
@@ -71,7 +77,13 @@ public class ProductActivity extends Activity implements IHttpRequestListener {
 
     @Override
     public void onSuccess(JSONObject object) {
+        Log.d("activity:login:success", object.toString());
 
+        Product objet = Product(object);
+
+        Product product = new Product( objet.getId(), objet.getName(), objet.getQuantity(), objet.getPrice());
+
+        this.redirectToShoppingListActivity();
     }
 
     @Override
@@ -82,5 +94,10 @@ public class ProductActivity extends Activity implements IHttpRequestListener {
     @Override
     public void onApiError(JSONObject object) {
 
+    }
+
+    private void redirectToShoppingListActivity() {
+        Intent i = new Intent(getApplicationContext(), com.esgi.iw3.g26.shoppinglist.ListActivity.class);
+        startActivity(i);
     }
 }
