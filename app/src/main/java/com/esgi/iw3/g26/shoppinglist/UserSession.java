@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Entity.User;
 
 public class UserSession {
@@ -28,10 +29,12 @@ public class UserSession {
         editor.putString(User.USER_TOKEN_KEY, user.getToken());
         editor.putString(User.USER_FIRST_NAME_KEY, user.getFirstName());
         editor.putString(User.USER_LAST_NAME_KEY, user.getLastName());
+        editor.commit();
     }
 
     public boolean checkLogin() {
         if (!this.isUserLoggedIn()) {
+            this.logoutUser();
             this.redirectToLogin();
             return true;
         }
@@ -63,6 +66,20 @@ public class UserSession {
     public String getToken() {
         checkLogin();
         return preferences.getString(User.USER_TOKEN_KEY, null);
+    }
+
+    public void putShoppingListId(Integer id) {
+        editor.putInt(ShoppingList.SHOPPING_LIST_ID_KEY,id);
+        editor.commit();
+    }
+
+    public boolean hasShoppingListId() {
+        int id = preferences.getInt(ShoppingList.SHOPPING_LIST_ID_KEY,0);
+        return id == 0;
+    }
+
+    public Integer getShoppingListId() {
+       return preferences.getInt(ShoppingList.SHOPPING_LIST_ID_KEY,0);
     }
 
     private void redirectToLogin() {
