@@ -80,7 +80,7 @@ public class ProductActivity extends Activity implements IHttpRequestListener {
     public void onSuccess(JSONObject object) {
         Log.d("activity:login:success", object.toString());
 
-        Product objet = Product(object);
+        Product objet = new Product(object);
 
         Product product = new Product( objet.getId(), objet.getName(), objet.getQuantity(), objet.getPrice());
 
