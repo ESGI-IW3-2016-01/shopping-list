@@ -8,10 +8,6 @@ import org.json.JSONObject;
 import java.util.Date;
 import java.util.HashMap;
 
-/**
- * Created by Antoine on 11/11/2016.
- */
-
 public class ShoppingList implements IHashMapSerialize {
 
     private Integer id;
@@ -19,9 +15,9 @@ public class ShoppingList implements IHashMapSerialize {
     private Date createdAt;
     private Boolean completed;
 
-    private static final String SHOPPING_LIST_NAME_KEY = "name";
-    private static final String SHOPPING_LIST_DATE_KEY = "created_date";
-    private static final String SHOPPING_LIST_COMPLETED_KEY = "completed";
+    public static final String SHOPPING_LIST_NAME_KEY = "name";
+    public static final String SHOPPING_LIST_DATE_KEY = "created_date";
+    public static final String SHOPPING_LIST_COMPLETED_KEY = "completed";
 
     /**
      * Constructor
@@ -40,9 +36,9 @@ public class ShoppingList implements IHashMapSerialize {
 
     public ShoppingList(JSONObject object) throws JSONException {
         this(object.optInt("id"),
-                object.optString("name"),
-                new Date(object.optString("created_date")),
-                object.optBoolean("completed", false)
+                object.optString(SHOPPING_LIST_NAME_KEY),
+                new Date(object.optString(SHOPPING_LIST_DATE_KEY)),
+                object.optBoolean(SHOPPING_LIST_COMPLETED_KEY, false)
         );
     }
 
@@ -91,8 +87,8 @@ public class ShoppingList implements IHashMapSerialize {
     public HashMap<String, String> toHashMap() {
         HashMap<String, String> map = new HashMap<>();
         map.put("id", this.id.toString());
-        map.put("create_date", this.createdAt.toString());
-        map.put("completed", this.completed.toString());
+        map.put(SHOPPING_LIST_DATE_KEY, this.createdAt.toString());
+        map.put(SHOPPING_LIST_COMPLETED_KEY, this.completed.toString());
         return map;
     }
 }

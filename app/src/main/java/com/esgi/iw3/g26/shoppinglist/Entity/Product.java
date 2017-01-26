@@ -42,10 +42,10 @@ public class Product implements IHashMapSerialize {
             if(object.has("result")) {
                 object = object.getJSONObject("result");
             }
-            this.id = object.getInt("shopping_list_id");
-            this.name = object.getString("name");
-            this.quantity = object.getInt("quantity");
-            this.price = object.getDouble("price");
+            this.id = object.getInt("id");
+            this.name = object.getString(PRODUCT_NAME_KEY);
+            this.quantity = object.optInt(PRODUCT_QUANTITY_KEY);
+            this.price = object.optDouble(PRODUCT_PRICE_KEY);
         } catch (Exception e) {
             Log.d("product:instantiation",e.getMessage());
         }
@@ -95,9 +95,9 @@ public class Product implements IHashMapSerialize {
     public HashMap<String, String> toHashMap() {
         HashMap<String, String> map = new HashMap<>();
         map.put("id", this.id.toString());
-        map.put("name", this.name);
-        map.put("quantity", this.quantity.toString());
-        map.put("price", this.price.toString());
+        map.put(PRODUCT_NAME_KEY, this.name);
+        map.put(PRODUCT_QUANTITY_KEY, this.quantity.toString());
+        map.put(PRODUCT_PRICE_KEY, this.price.toString());
         return map;
     }
 }

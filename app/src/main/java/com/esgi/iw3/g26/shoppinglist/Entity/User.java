@@ -19,9 +19,10 @@ public class User implements IHashMapSerialize {
     private String email;
     private String token;
 
-    private final static String USER_FIRST_NAME_KEY = "firstname";
-    private final static String USER_LAST_NAME_KEY = "lastname";
-    private final static String USER_EMAIL_KEY = "email";
+    public final static String USER_FIRST_NAME_KEY = "firstname";
+    public final static String USER_LAST_NAME_KEY = "lastname";
+    public final static String USER_EMAIL_KEY = "email";
+    public final static String USER_TOKEN_KEY = "email";
 
     public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
@@ -41,10 +42,10 @@ public class User implements IHashMapSerialize {
             if (object.has("result")) {
                 object = object.getJSONObject("result");
             }
-            this.firstName = object.getString("firstname");
-            this.lastName = object.getString("lastname");
-            this.email = object.getString("email");
-            this.token = object.getString("token");
+            this.firstName = object.getString(USER_FIRST_NAME_KEY);
+            this.lastName = object.getString(USER_LAST_NAME_KEY);
+            this.email = object.getString(USER_EMAIL_KEY);
+            this.token = object.getString(USER_TOKEN_KEY);
         } catch (Exception e) {
             Log.d("user:instantiation", e.getMessage());
         }
@@ -95,9 +96,9 @@ public class User implements IHashMapSerialize {
 
     public HashMap<String, String> toHashMap() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("firstname", this.firstName);
-        map.put("lastname", this.lastName);
-        map.put("email", this.email);
+        map.put(USER_FIRST_NAME_KEY, this.firstName);
+        map.put(USER_LAST_NAME_KEY, this.lastName);
+        map.put(USER_EMAIL_KEY, this.email);
         return map;
     }
 }

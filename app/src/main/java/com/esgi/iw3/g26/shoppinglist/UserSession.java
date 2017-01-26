@@ -9,31 +9,25 @@ import com.esgi.iw3.g26.shoppinglist.Entity.User;
 
 public class UserSession {
 
-    public static final String KEY_EMAIL = "email";
-//    public static final String KEY_PASSWORD = "password";
-    public static final String KEY_FIRSTNAME = "firstName";
-    public static final String KEY_LASTNAME = "lastName";
-    public static final String KEY_TOKEN = "token";
-    public static final String KEY_USER_LOGGED_IN = "isUserLoggedIn";
-
     private Context context;
     private Editor editor;
     private SharedPreferences preferences;
-    private int PRIVATE_MODE = 0;
-    private String PREFERNCE_NAME = "userSession";
+    private static final int PRIVATE_MODE = 0;
+    private static final String PREFERENCE_NAME = "userSession";
+    private static final String KEY_USER_LOGGED_IN = "isUserLoggedIn";
 
     public UserSession(Context context) {
         this.context = context;
-        this.preferences = this.context.getSharedPreferences(PREFERNCE_NAME,PRIVATE_MODE);
+        this.preferences = this.context.getSharedPreferences(PREFERENCE_NAME,PRIVATE_MODE);
         this.editor = this.preferences.edit();
     }
 
     public void createUserLoginSession(User user) {
         editor.putBoolean(KEY_USER_LOGGED_IN, true);
-        editor.putString(KEY_EMAIL, user.getEmail());
-        editor.putString(KEY_TOKEN, user.getToken());
-        editor.putString(KEY_FIRSTNAME, user.getFirstName());
-        editor.putString(KEY_LASTNAME, user.getLastName());
+        editor.putString(User.USER_EMAIL_KEY, user.getEmail());
+        editor.putString(User.USER_TOKEN_KEY, user.getToken());
+        editor.putString(User.USER_FIRST_NAME_KEY, user.getFirstName());
+        editor.putString(User.USER_LAST_NAME_KEY, user.getLastName());
     }
 
     public boolean checkLogin() {
@@ -46,9 +40,9 @@ public class UserSession {
 
     public User getUserLoggedId() {
         return new User(
-                preferences.getString(KEY_FIRSTNAME, null),
-                preferences.getString(KEY_LASTNAME, null),
-                preferences.getString(KEY_EMAIL, null)
+                preferences.getString(User.USER_FIRST_NAME_KEY, null),
+                preferences.getString(User.USER_LAST_NAME_KEY, null),
+                preferences.getString(User.USER_EMAIL_KEY, null)
         );
     }
 
@@ -68,7 +62,7 @@ public class UserSession {
 
     public String getToken() {
         checkLogin();
-        return preferences.getString(KEY_TOKEN, null);
+        return preferences.getString(User.USER_TOKEN_KEY, null);
     }
 
     private void redirectToLogin() {
