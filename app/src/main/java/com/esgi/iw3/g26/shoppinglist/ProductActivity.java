@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductCreateTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.Product;
+import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
 
 import org.json.JSONObject;
@@ -38,7 +39,7 @@ public class ProductActivity extends Activity implements IHttpRequestListener {
         setContentView(R.layout.activity_product);
 
         addListenerOnButton();
-
+        String[] shoppinglistsKey = new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY,ShoppingList.SHOPPING_LIST_DATE_KEY,ShoppingList.SHOPPING_LIST_COMPLETED_KEY};
     }
 
 

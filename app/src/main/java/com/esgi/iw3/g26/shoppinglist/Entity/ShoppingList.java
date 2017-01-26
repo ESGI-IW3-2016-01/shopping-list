@@ -15,6 +15,7 @@ public class ShoppingList implements IHashMapSerialize {
     private Date createdAt;
     private Boolean completed;
 
+    public static final String SHOPPING_LIST_ID_KEY = "id";
     public static final String SHOPPING_LIST_NAME_KEY = "name";
     public static final String SHOPPING_LIST_DATE_KEY = "created_date";
     public static final String SHOPPING_LIST_COMPLETED_KEY = "completed";

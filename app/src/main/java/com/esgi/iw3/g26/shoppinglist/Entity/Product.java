@@ -8,10 +8,6 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
-/**
- * Created by Antoine on 11/11/2016.
- */
-
 public class Product implements IHashMapSerialize {
 
     private Integer id;

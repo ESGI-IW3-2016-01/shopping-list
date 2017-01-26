@@ -43,6 +43,7 @@ public class ProductsActivity extends ListActivity implements IHttpRequestListen
 
         String token = session.getToken();
         String listId = "12" ;
+        String[] productsKey = new String[]{Product.PRODUCT_NAME_KEY,Product.PRODUCT_QUANTITY_KEY,Product.PRODUCT_PRICE_KEY};
 
         listProductTask = new ProductListTask(token, listId);
         listProductTask.execute();
