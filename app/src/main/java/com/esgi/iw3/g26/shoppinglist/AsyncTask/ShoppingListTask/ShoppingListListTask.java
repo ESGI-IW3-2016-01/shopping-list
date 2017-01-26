@@ -2,6 +2,8 @@ package com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ShoppingListListTask extends AbstractShoppingListTask {
@@ -21,6 +23,14 @@ public class ShoppingListListTask extends AbstractShoppingListTask {
     }
 
     protected void onPostExecute(JSONObject response) {
-        //TODO: api logic
+        try {
+            if(response.has("code") && response.getInt("code") == 0) {
+                this.listener.onSuccess(response);
+            } else {
+                this.listener.onApiError(response);
+            }
+        } catch (JSONException e) {
+            this.listener.onFailure(e.getMessage());
+        }
     }
 }
