@@ -1,15 +1,17 @@
 package com.esgi.iw3.g26.shoppinglist.Entity;
 
+import android.util.Log;
+
 import com.esgi.iw3.g26.shoppinglist.Interface.IHashMapSerialize;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.HashMap;
 
 public class ShoppingList implements IHashMapSerialize {
-
     private Integer id;
     private String name;
     private Date createdAt;
