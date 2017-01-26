@@ -1,18 +1,23 @@
 package com.esgi.iw3.g26.shoppinglist.Entity;
 
+import com.esgi.iw3.g26.shoppinglist.Interface.IHashMapSerialize;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
-import java.util.Objects;
+import java.util.HashMap;
 
 /**
  * Created by Antoine on 11/11/2016.
  */
 
-public class ShoppingList {
+public class ShoppingList implements IHashMapSerialize {
 
-    private int id;
+    private Integer id;
     private String name;
     private Date createdAt;
-    private boolean completed;
+    private Boolean completed;
     /* TODO Liste de produits ? */
 
     /**
@@ -30,11 +35,19 @@ public class ShoppingList {
         this.completed = completed;
     }
 
-    public int getId() {
+    public ShoppingList(JSONObject object) throws JSONException {
+        this(object.optInt("id"),
+                object.optString("name"),
+                new Date(object.optString("created_date")),
+                object.optBoolean("completed", false)
+        );
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -54,11 +67,11 @@ public class ShoppingList {
         this.createdAt = createdAt;
     }
 
-    public boolean isCompleted() {
+    public Boolean isCompleted() {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
+    public void setCompleted(Boolean completed) {
         this.completed = completed;
     }
 
@@ -69,5 +82,14 @@ public class ShoppingList {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public HashMap<String, String> toHashMap() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id", this.id.toString());
+        map.put("create_date", this.createdAt.toString());
+        map.put("completed", this.completed.toString());
+        return map;
     }
 }
