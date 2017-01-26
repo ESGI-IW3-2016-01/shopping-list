@@ -2,13 +2,17 @@ package com.esgi.iw3.g26.shoppinglist.Entity;
 
 import android.util.Log;
 
+import com.esgi.iw3.g26.shoppinglist.Interface.IHashMapSerialize;
+
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 /**
  * Created by Antoine on 11/11/2016.
  */
 
-public class User {
+public class User implements IHashMapSerialize {
 
     private String firstName;
     private String lastName;
@@ -30,7 +34,7 @@ public class User {
 
     public User(JSONObject object) {
         try {
-            if(object.has("result")) {
+            if (object.has("result")) {
                 object = object.getJSONObject("result");
             }
             this.firstName = object.getString("firstname");
@@ -38,7 +42,7 @@ public class User {
             this.email = object.getString("email");
             this.token = object.getString("token");
         } catch (Exception e) {
-            Log.d("user:instantiation",e.getMessage());
+            Log.d("user:instantiation", e.getMessage());
         }
     }
 
@@ -83,5 +87,13 @@ public class User {
         } else {
             return false;
         }
+    }
+
+    public HashMap<String, String> toHashMap() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("firstname", this.firstName);
+        map.put("lastname", this.lastName);
+        map.put("email", this.email);
+        return map;
     }
 }

@@ -1,15 +1,19 @@
 package com.esgi.iw3.g26.shoppinglist.Entity;
 
+import com.esgi.iw3.g26.shoppinglist.Interface.IHashMapSerialize;
+
+import java.util.HashMap;
+
 /**
  * Created by Antoine on 11/11/2016.
  */
 
-public class Product {
+public class Product implements IHashMapSerialize {
 
-    private int id;
+    private Integer id;
     private String name;
-    private int quantity;
-    private double price;
+    private Integer quantity;
+    private Double price;
 
     /**
      * Constructor
@@ -25,11 +29,11 @@ public class Product {
         this.price = price;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,19 +45,19 @@ public class Product {
         this.name = name;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -64,5 +68,14 @@ public class Product {
         } else {
             return false;
         }
+    }
+
+    public HashMap<String, String> toHashMap() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id", this.id.toString());
+        map.put("name", this.name);
+        map.put("quantity", this.quantity.toString());
+        map.put("price", this.price.toString());
+        return map;
     }
 }
