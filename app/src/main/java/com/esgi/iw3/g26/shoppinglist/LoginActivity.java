@@ -323,7 +323,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     }
 
     private void redirectToShoppingListActivity() {
-        Intent i = new Intent(getApplicationContext(), ListActivity.class);
+        Intent i = new Intent(getApplicationContext(), ListsActivity.class);
         startActivity(i);
     }
 }
