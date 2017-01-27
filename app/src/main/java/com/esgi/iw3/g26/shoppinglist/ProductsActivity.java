@@ -20,10 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by Jolan on 24/01/2017.
- */
-
 public class ProductsActivity extends ListActivity implements IHttpRequestListener {
 
     TextView content;

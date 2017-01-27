@@ -19,10 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 
 
-/**
- * Created by Jolan on 24/01/2017.
- */
-
 public class ListsActivity extends ListActivity implements IHttpRequestListener {
 
     ListView listView;
@@ -70,7 +66,7 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
             }
         }
 
-        listView = (ListView) findViewById(R.id.list);
+        listView = (ListView) findViewById(R.id.shopping_list);
         listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listValues));
     }
 
