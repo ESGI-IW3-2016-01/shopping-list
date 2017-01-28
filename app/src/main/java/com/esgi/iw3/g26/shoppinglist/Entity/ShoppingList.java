@@ -2,7 +2,6 @@ package com.esgi.iw3.g26.shoppinglist.Entity;
 
 import com.esgi.iw3.g26.shoppinglist.Interface.IHashMapSerialize;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
@@ -102,7 +101,7 @@ public class ShoppingList implements IHashMapSerialize {
         map.put(SHOPPING_LIST_NAME_KEY, this.name);
         map.put(SHOPPING_LIST_DATE_KEY, df2.format(this.createdAt).toString());
         map.put(SHOPPING_LIST_COMPLETED_KEY, this.completed ? "0" : "1");
-//User to display in listView
+        //User to display in listView
         map.put(SHOPPING_LIST_TEXT_1, todo + " " + this.name);
         map.put(SHOPPING_LIST_TEXT_2, "Created on " + df.format(this.createdAt));
         return map;

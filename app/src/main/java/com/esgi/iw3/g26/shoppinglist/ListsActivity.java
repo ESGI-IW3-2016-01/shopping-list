@@ -62,7 +62,7 @@ public class ListsActivity extends Activity implements IHttpRequestListener {
         simpleAdapter = new SimpleAdapter(this,
                 shoppinglistList,
                 android.R.layout.simple_list_item_2,
-                new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY, ShoppingList.SHOPPING_LIST_DATE_KEY},
+                new String[]{ShoppingList.SHOPPING_LIST_TEXT_1, ShoppingList.SHOPPING_LIST_TEXT_2},
                 new int[]{android.R.id.text1, android.R.id.text2});
         listView.setAdapter(simpleAdapter);
 
