@@ -35,6 +35,15 @@
         <activity
             android:name=".CreateListActivity"
             android:label="@string/title_activity_main"></activity>
+        <activity
+            android:name=".EditListActivity"
+            android:label="@string/title_activity_main"></activity>
+        <activity
+            android:name=".CreateProductActivity"
+            android:label="@string/title_activity_main"></activity>
+        <activity
+            android:name=".EditProductActivity"
+            android:label="@string/title_activity_main"></activity>
         <!--TODO: changer le nom et le theme-->
     </application>
 

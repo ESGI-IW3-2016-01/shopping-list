@@ -20,7 +20,7 @@
         android:layout_weight="0.18" />
 
     <ListView
-        android:id="@+id/list"
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="167dp"
         android:layout_weight="0.49" />

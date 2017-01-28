@@ -291,6 +291,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         Log.d("activity:login:success", object.toString());
         User user = new User(object);
         session.createUserLoginSession(user);
+        showProgress(false);
         this.redirectToShoppingListActivity();
     }
 
