@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.esgi.iw3.g26.shoppinglist.ProductsActivity"
+    tools:context="com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList.ListActivity"
     android:weightSum="1">
 
     <TextView
@@ -27,10 +27,12 @@
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/product_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        android:layout_alignBottom="@android:id/list"
+        android:layout_alignRight="@android:id/list"
+        app:srcCompat="@drawable/ic_add_white_24dp" />
 </LinearLayout>

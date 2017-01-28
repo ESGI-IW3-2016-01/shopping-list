@@ -63,7 +63,7 @@ public class ListActivity extends Activity implements IHttpRequestListener {
         productListTask.setListener(this);
         productListTask.execute();
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.product_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

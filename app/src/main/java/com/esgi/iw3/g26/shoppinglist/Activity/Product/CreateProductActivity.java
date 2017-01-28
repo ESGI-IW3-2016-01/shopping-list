@@ -37,7 +37,7 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
 
         Intent intent = getIntent();
         listId = intent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
-
+        button = (Button) findViewById(R.id.list_saveProduct_button);
         addListenerOnButton();
         String[] shoppinglistsKey = new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY, ShoppingList.SHOPPING_LIST_DATE_KEY, ShoppingList.SHOPPING_LIST_COMPLETED_KEY};
     }
