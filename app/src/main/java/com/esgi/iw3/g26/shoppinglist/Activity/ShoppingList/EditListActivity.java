@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductRemoveTask;
+import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListCreateTask;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListEditTask;
+import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListRemoveTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
 import com.esgi.iw3.g26.shoppinglist.R;
@@ -26,6 +29,7 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
     private Boolean completed;
 
     private ShoppingListEditTask editListTask;
+    private ShoppingListRemoveTask deleteListTask = null;
     private UserSession session;
 
     @Override
@@ -43,12 +47,29 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
         name = intent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
         completed = intent.getBooleanExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY, true);
 
+        Button buttonDelete= (Button) findViewById(R.id.list_deleteProduct_button);
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+
+                executeDelete();
+            }
+        });
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 executeCreate();
             }
         });
+    }
+
+    private void executeDelete() {
+
+        session = new UserSession(getApplicationContext());
+        String token = session.getToken();
+        deleteListTask = new ShoppingListRemoveTask(token, id);
+        deleteListTask.execute();
     }
 
     private void executeCreate() {

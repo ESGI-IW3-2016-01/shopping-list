@@ -92,10 +92,6 @@ public class EditProductActivity extends Activity implements IHttpRequestListene
     public void onSuccess(JSONObject object) {
         Log.d("activity:edit:success", object.toString());
 
-        Product objet = new Product(object);
-
-        Product product = new Product( objet.getId(), objet.getName(), objet.getQuantity(), objet.getPrice());
-
         this.redirectToShoppingListActivity();
     }
 

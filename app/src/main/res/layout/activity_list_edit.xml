@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.esgi.iw3.g26.shoppinglist.Activity.Product.EditProductActivity">
+    tools:context="com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList.EditListActivity">
 
     <ScrollView
         android:id="@+id/login_form"
@@ -21,46 +21,42 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Spinner
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner" />
+                android:layout_height="wrap_content">
 
+                <AutoCompleteTextView
+                    android:id="@+id/nameList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_nameList"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true" />
 
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/prompt_numberProduct"
-                android:ems="10"
-                android:id="@+id/editNumberProduct" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:hint="@string/prompt_price"
-                android:ems="10"
-                android:id="@+id/editPrice" />
+            </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/list_saveProduct_button"
+                android:id="@+id/create_list_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_save"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimaryDark" />
 
             <Button
-                android:id="@+id/list_deleteProduct_button"
+                android:id="@+id/list_deleteList_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="string/action_remove"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_red_light"
+                android:background="@color/colorPrimaryDark" />
 
         </LinearLayout>
     </ScrollView>
