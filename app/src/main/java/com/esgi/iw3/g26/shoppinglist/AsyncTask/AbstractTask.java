@@ -41,7 +41,6 @@ public abstract class AbstractTask extends AsyncTask<Void, Long, JSONObject> {
 
         try {
             URL uri = new URL(url);
-            Log.d("getUrl", url);
             HttpURLConnection urlConnection = (HttpURLConnection) uri.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setReadTimeout(10000);

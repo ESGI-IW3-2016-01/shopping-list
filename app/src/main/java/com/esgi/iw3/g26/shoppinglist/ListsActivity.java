@@ -2,10 +2,13 @@ package com.esgi.iw3.g26.shoppinglist;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListListTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.Product;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
+import com.esgi.iw3.g26.shoppinglist.Entity.User;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
 
 import org.json.JSONArray;
@@ -29,6 +33,7 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
     private ShoppingListListTask listListTask;
     private UserSession session;
     private ListView listView;
+    private Button fab;
     private List<HashMap<String, String>> shoppinglistList = new ArrayList<>();
     private SimpleAdapter simpleAdapter;
 
@@ -38,10 +43,20 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
         this.session = new UserSession(getApplicationContext());
+
         listView = (ListView) findViewById(android.R.id.list);
         listListTask = new ShoppingListListTask(session.getToken());
         listListTask.setListener(this);
         listListTask.execute();
+
+        fab = (Button) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent i = new Intent(getApplicationContext(), NewListListActivity.class);
+//                startActivity(i);
+            }
+        });
 
         simpleAdapter = new SimpleAdapter(this,
                 shoppinglistList,
@@ -59,10 +74,14 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
 
         try {
             JSONArray array = object.getJSONArray("result");
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject temp = (JSONObject) array.get(i);
-                ShoppingList shoppingList = new ShoppingList(temp);
-                shoppinglistList.add(shoppingList.toHashMap());
+            if (array.length() <= 0) {
+//                TODO Pas de listes de courses : Afficher un truc spécial (pas toasté)
+            } else {
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject temp = (JSONObject) array.get(i);
+                    ShoppingList shoppingList = new ShoppingList(temp);
+                    shoppinglistList.add(shoppingList.toHashMap());
+                }
             }
         } catch (JSONException e) {
 
@@ -82,7 +101,7 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
         CharSequence text = object.optString("msg");
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, 3);
-        toast.setGravity(Gravity.BOTTOM,0,0);
+        toast.setGravity(Gravity.BOTTOM, 0, 0);
         toast.show();
     }
 }
