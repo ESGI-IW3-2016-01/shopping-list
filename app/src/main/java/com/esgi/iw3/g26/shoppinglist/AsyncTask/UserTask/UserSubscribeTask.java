@@ -33,6 +33,10 @@ public class UserSubscribeTask extends AbstractUserTask {
     }
 
     protected void onPostExecute(JSONObject response) {
-        //TODO: api logic
+        if (response.has("code") && response.optInt("code") == 0) {
+            this.listener.onSuccess(response.optJSONObject("result"));
+        } else {
+            this.listener.onApiError(response);
+        }
     }
 }
