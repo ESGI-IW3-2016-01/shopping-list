@@ -74,7 +74,7 @@ public class ListsActivity extends Activity implements IHttpRequestListener {
         try {
             JSONArray array = object.getJSONArray("result");
             if (array.length() <= 0) {
-//                TODO Pas de listes de courses : Afficher un truc spécial (pas toasté)
+//                TODO no shopping list yet
             } else {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject temp = (JSONObject) array.get(i);

@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.esgi.iw3.g26.shoppinglist.ProductActivity">
+    tools:context="com.esgi.iw3.g26.shoppinglist.CreateProductActivity">
 
     <ScrollView
         android:id="@+id/login_form"

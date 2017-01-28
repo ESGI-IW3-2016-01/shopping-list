@@ -32,6 +32,7 @@ public class UserSubscribeTask extends AbstractUserTask {
         return getURL(USER_SUBSCRIBE_URL + queryParameters);
     }
 
+    @Override
     protected void onPostExecute(JSONObject response) {
         if (response.has("code") && response.optInt("code") == 0) {
             this.listener.onSuccess(response.optJSONObject("result"));

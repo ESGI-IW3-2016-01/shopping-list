@@ -91,7 +91,7 @@ public class ShoppingList implements IHashMapSerialize {
     @Override
     public HashMap<String, String> toHashMap() {
         DateFormat df = new SimpleDateFormat("MMM dd, yyyy");
-        String todo = this.completed ? "(active)" : "(completed)";
+        String todo = this.completed ? "(completed)" : "(active)";
 
         HashMap<String, String> map = new HashMap<>();
         map.put("id",this.id.toString());

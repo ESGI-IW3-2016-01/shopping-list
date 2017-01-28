@@ -20,7 +20,7 @@ import org.json.JSONObject;
  * Created by Jolan on 24/01/2017.
  */
 
-public class ProductActivity extends Activity implements IHttpRequestListener {
+public class CreateProductActivity extends Activity implements IHttpRequestListener {
 
     TextView textView;
     Button button;
