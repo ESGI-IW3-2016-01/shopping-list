@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductCreateTask;
+import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductEditTask;
+import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductRemoveTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.Product;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
@@ -20,24 +22,24 @@ import org.json.JSONObject;
  * Created by Jolan on 24/01/2017.
  */
 
-public class CreateProductActivity extends Activity implements IHttpRequestListener {
+public class EditProductActivity extends Activity implements IHttpRequestListener {
 
     TextView nameListProduct;
-    Button button;
     EditText numberProduct, priceProduct;
+    private String productId;
 
-    private String listId;
-    private ProductCreateTask createProductTask = null;
+    private ProductEditTask editProductTask = null;
+    private ProductRemoveTask deleteProductTask = null;
     private UserSession session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product);
+        setContentView(R.layout.activity_product_edit);
 
         Intent intent = getIntent();
-        listId = intent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
+        productId = intent.getStringExtra(Product.PRODUCT_ID_KEY);
 
         addListenerOnButton();
         String[] shoppinglistsKey = new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY,ShoppingList.SHOPPING_LIST_DATE_KEY,ShoppingList.SHOPPING_LIST_COMPLETED_KEY};
@@ -46,8 +48,23 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
 
     public void addListenerOnButton() {
 
-        button.setOnClickListener(new View.OnClickListener() {
 
+        Button buttonDelete= (Button) findViewById(R.id.list_deleteProduct_button);
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+
+                session = new UserSession(getApplicationContext());
+                String token = session.getToken();
+                deleteProductTask = new ProductRemoveTask(token, productId);
+                deleteProductTask.execute();
+            }
+        });
+
+
+
+        Button buttonEdit= (Button) findViewById(R.id.list_saveProduct_button);
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
 
@@ -63,8 +80,8 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
                 session = new UserSession(getApplicationContext());
                 String token = session.getToken();
 
-                createProductTask = new ProductCreateTask(token, listId,  nameList, quantity, price);
-                createProductTask.execute();
+                editProductTask = new ProductEditTask(token, productId,  price, nameList, quantity);
+                editProductTask.execute();
 
             }
 
@@ -75,7 +92,7 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
 
     @Override
     public void onSuccess(JSONObject object) {
-        Log.d("activity:login:success", object.toString());
+        Log.d("activity:edit:success", object.toString());
 
         Product objet = new Product(object);
 
@@ -95,7 +112,7 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
     }
 
     private void redirectToShoppingListActivity() {
-        Intent i = new Intent(getApplicationContext(), com.esgi.iw3.g26.shoppinglist.ListActivity.class);
+        Intent i = new Intent(getApplicationContext(), ListActivity.class);
         startActivity(i);
     }
 }
