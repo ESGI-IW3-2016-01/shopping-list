@@ -10,7 +10,7 @@ import com.esgi.iw3.g26.shoppinglist.Entity.User;
 
 public class UserSession {
 
-    private Context context;
+    private Context _context;
     private Editor editor;
     private SharedPreferences preferences;
     private static final int PRIVATE_MODE = 0;
@@ -18,9 +18,9 @@ public class UserSession {
     private static final String KEY_USER_LOGGED_IN = "isUserLoggedIn";
 
     public UserSession(Context context) {
-        this.context = context;
-        this.preferences = this.context.getSharedPreferences(PREFERENCE_NAME,PRIVATE_MODE);
-        this.editor = this.preferences.edit();
+        this._context = context;
+        this.preferences =  _context.getSharedPreferences(PREFERENCE_NAME,PRIVATE_MODE);
+        this.editor = preferences.edit();
     }
 
     public void createUserLoginSession(User user) {
@@ -36,9 +36,14 @@ public class UserSession {
         if (!this.isUserLoggedIn()) {
             this.logoutUser();
             this.redirectToLogin();
-            return true;
+            return false;
         }
-        return false;
+        return true;
+    }
+
+    public void saveToken(String token) {
+        editor.putString("token",token);
+        editor.commit();
     }
 
     public User getUserLoggedId() {
@@ -65,7 +70,7 @@ public class UserSession {
 
     public String getToken() {
         checkLogin();
-        return preferences.getString(User.USER_TOKEN_KEY, null);
+        return preferences.getString(User.USER_TOKEN_KEY,null);
     }
 
     public void putShoppingListId(Integer id) {
@@ -84,13 +89,13 @@ public class UserSession {
 
     private void redirectToLogin() {
         // After logout redirect user to MainActivity
-        Intent i = new Intent(context, LoginActivity.class);
+        Intent i = new Intent(_context, LoginActivity.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         // Add new Flag to start new Activity
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // Staring Login Activity
-        context.startActivity(i);
+        _context.startActivity(i);
     }
 
 }

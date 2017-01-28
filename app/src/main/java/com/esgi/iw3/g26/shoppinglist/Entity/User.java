@@ -22,7 +22,7 @@ public class User implements IHashMapSerialize {
     public final static String USER_FIRST_NAME_KEY = "firstname";
     public final static String USER_LAST_NAME_KEY = "lastname";
     public final static String USER_EMAIL_KEY = "email";
-    public final static String USER_TOKEN_KEY = "email";
+    public final static String USER_TOKEN_KEY = "token";
 
     public User(String firstName, String lastName, String email) {
         this.firstName = firstName;

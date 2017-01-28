@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +31,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.UserTask.UserLoginTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.User;
@@ -51,18 +54,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
     private UserLoginTask mAuthTask = null;
-
+    private UserSession session;
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
-    private UserSession session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +68,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         setContentView(R.layout.activity_login);
         this.session = new UserSession(getApplicationContext());
 
-        if (session.isUserLoggedIn()) {
-            Log.d(this.getLocalClassName(),"user session exists");
-            this.redirectToShoppingListActivity();
-        }
-        Log.d(this.getLocalClassName(),"user session does not exists");
+//        if (session.isUserLoggedIn()) {
+//            Log.d(this.getLocalClassName(),"user session exists");
+//            this.redirectToShoppingListActivity();
+//        } else {
+//            Log.d(this.getLocalClassName(),"user session does not exists");
+//        }
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -176,11 +175,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
             cancel = true;
         }
 
-        // Check for a valid email address.
-//        if (TextUtils.isEmpty(email)) {
-//            mEmailView.setError(getString(R.string.error_field_required));
-//            focusView = mEmailView;
-//            cancel = true;
         if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
@@ -299,8 +293,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
     @Override
     public void onApiError(JSONObject object) {
-        Log.d("activity:login:api", object.toString());
-        //TODO: Toast
+        showProgress(false);
+        CharSequence text = object.optString("msg");
+        Log.d("activity:login:api", object.optString("msg"));
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, text, 3);
+        toast.setGravity(Gravity.BOTTOM,0,0);
+        toast.show();
     }
 
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {

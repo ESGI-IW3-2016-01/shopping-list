@@ -1,12 +1,17 @@
 package com.esgi.iw3.g26.shoppinglist;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListListTask;
+import com.esgi.iw3.g26.shoppinglist.Entity.Product;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
 
@@ -21,23 +26,29 @@ import java.util.List;
 
 public class ListsActivity extends ListActivity implements IHttpRequestListener {
 
-    ListView listView;
-    private ShoppingListListTask listListTask = null;
-    private String[] listValues = {};
+    private ShoppingListListTask listListTask;
     private UserSession session;
+    private ListView listView;
     private List<HashMap<String, String>> shoppinglistList = new ArrayList<>();
+    private SimpleAdapter simpleAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
-
         this.session = new UserSession(getApplicationContext());
-        String token = session.getToken();
-
-        listListTask = new ShoppingListListTask(token);
+        listView = (ListView) findViewById(android.R.id.list);
+        listListTask = new ShoppingListListTask(session.getToken());
+        listListTask.setListener(this);
         listListTask.execute();
+
+        simpleAdapter = new SimpleAdapter(this,
+                shoppinglistList,
+                android.R.layout.simple_selectable_list_item,
+                new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY, ShoppingList.SHOPPING_LIST_DATE_KEY},
+                new int[]{android.R.id.text1, android.R.id.text2});
+        listView.setAdapter(simpleAdapter);
     }
 
 
@@ -56,18 +67,7 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
         } catch (JSONException e) {
 
         }
-
-        String listValues[] = new String[shoppinglistList.size()];
-        int i = 0;
-        for (HashMap<String, String> hash : shoppinglistList) {
-            for (String current : hash.values()) {
-                listValues[i] = current;
-                i++;
-            }
-        }
-
-        listView = (ListView) findViewById(R.id.shopping_list);
-        listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listValues));
+        simpleAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -77,6 +77,12 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
 
     @Override
     public void onApiError(JSONObject object) {
+        Log.d("activity:lists:api", object.optString("msg"));
 
+        CharSequence text = object.optString("msg");
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, text, 3);
+        toast.setGravity(Gravity.BOTTOM,0,0);
+        toast.show();
     }
 }
