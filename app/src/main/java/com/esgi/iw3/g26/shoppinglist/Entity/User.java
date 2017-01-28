@@ -8,10 +8,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-/**
- * Created by Antoine on 11/11/2016.
- */
-
 public class User implements IHashMapSerialize {
 
     private String firstName;

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class ShoppingList implements IHashMapSerialize {
+
     private Integer id;
     private String name;
     private Date createdAt;
@@ -26,10 +27,10 @@ public class ShoppingList implements IHashMapSerialize {
     /**
      * Constructor
      *
-     * @param id
-     * @param name
-     * @param createdAt
-     * @param completed
+     * @param id Shopping List id
+     * @param name Shopping List name
+     * @param createdAt Shopping List date of creation
+     * @param completed Shopping List is completed or not
      */
     public ShoppingList(int id, String name, Date createdAt, boolean completed) {
         this.id = id;
