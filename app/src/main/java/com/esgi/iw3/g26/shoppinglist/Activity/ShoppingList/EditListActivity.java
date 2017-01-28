@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductRemoveTask;
@@ -45,14 +46,16 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
         Intent intent = getIntent();
         id = intent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
         name = intent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
-        completed = intent.getBooleanExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY, true);
 
+        EditText nameView = (EditText) findViewById(R.id.nameList);
+
+        nameView.setText(name);
         Button buttonDelete= (Button) findViewById(R.id.list_deleteProduct_button);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
 
-                executeDelete();
+                executeDelete(id);
             }
         });
 
@@ -64,7 +67,7 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
         });
     }
 
-    private void executeDelete() {
+    private void executeDelete(String id) {
 
         session = new UserSession(getApplicationContext());
         String token = session.getToken();
