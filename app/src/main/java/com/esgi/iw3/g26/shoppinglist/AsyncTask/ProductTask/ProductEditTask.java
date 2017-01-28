@@ -50,8 +50,4 @@ public class ProductEditTask extends AbstractProductTask {
         Log.d("product:edit", PRODUCT_EDIT_URL + queryParameters);
         return getURL(PRODUCT_EDIT_URL + queryParameters);
     }
-
-    protected void onPostExecute(JSONObject response) {
-        //TODO: api logic
-    }
 }

@@ -25,8 +25,4 @@ public class ProductRemoveTask extends AbstractProductTask {
         Log.d("product:remove", PRODUCT_CREATE_URL + queryParameters);
         return getURL(PRODUCT_CREATE_URL + queryParameters);
     }
-
-    protected void onPostExecute(JSONObject response) {
-        //TODO: api logic
-    }
 }

@@ -44,8 +44,4 @@ public class ShoppingListEditTask extends AbstractShoppingListTask {
         Log.d("shoppingList:edit", SHOPPING_LIST_EDIT_URL + queryParameters);
         return getURL(SHOPPING_LIST_EDIT_URL + queryParameters);
     }
-
-    protected void onPostExecute(JSONObject response) {
-        //TODO: api logic
-    }
 }

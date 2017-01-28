@@ -2,6 +2,7 @@ package com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask;
 
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import static java.lang.StrictMath.abs;
@@ -25,8 +26,16 @@ public class ProductListTask extends AbstractProductTask {
         Log.d("product:list", PRODUCT_LIST_URL + queryParameters);
         return getURL(PRODUCT_LIST_URL + queryParameters);
     }
-
+    @Override
     protected void onPostExecute(JSONObject response) {
-        //TODO: api logic
+        try {
+            if(response.has("code") && response.getInt("code") == 0) {
+                this.listener.onSuccess(response);
+            } else {
+                this.listener.onApiError(response);
+            }
+        } catch (JSONException e) {
+            this.listener.onFailure(e.getMessage());
+        }
     }
 }

@@ -22,6 +22,7 @@ public class ShoppingListListTask extends AbstractShoppingListTask {
         return getURL(SHOPPING_LIST_LIST_URL + queryParameters);
     }
 
+    @Override
     protected void onPostExecute(JSONObject response) {
         try {
             if(response.has("code") && response.getInt("code") == 0) {

@@ -23,8 +23,4 @@ public class ShoppingListRemoveTask extends AbstractShoppingListTask {
         Log.d("shoppingList:remove", SHOPPING_LIST_REMOVE_URL + queryParameters);
         return getURL(SHOPPING_LIST_REMOVE_URL + queryParameters);
     }
-
-    protected void onPostExecute(JSONObject response) {
-        //TODO: api logic
-    }
 }
