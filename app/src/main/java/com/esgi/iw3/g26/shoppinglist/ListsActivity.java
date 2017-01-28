@@ -78,7 +78,7 @@ public class ListsActivity extends Activity implements IHttpRequestListener {
 
     public void redirectToShoppingList(HashMap<String, String> map) {
         Intent i = new Intent(getApplicationContext(), ListActivity.class);
-        i.putExtra(ShoppingList.SHOPPING_LIST_ID_KEY, Integer.getInteger(map.get(ShoppingList.SHOPPING_LIST_ID_KEY)));
+        i.putExtra(ShoppingList.SHOPPING_LIST_ID_KEY, map.get(ShoppingList.SHOPPING_LIST_ID_KEY));
         i.putExtra(ShoppingList.SHOPPING_LIST_NAME_KEY, map.get(ShoppingList.SHOPPING_LIST_NAME_KEY));
         i.putExtra(ShoppingList.SHOPPING_LIST_DATE_KEY, map.get(ShoppingList.SHOPPING_LIST_DATE_KEY));
         i.putExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY, map.get(ShoppingList.SHOPPING_LIST_COMPLETED_KEY) == "0" ? false : true);

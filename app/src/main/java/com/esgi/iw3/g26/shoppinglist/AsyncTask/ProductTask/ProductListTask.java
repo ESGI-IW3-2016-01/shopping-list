@@ -1,5 +1,6 @@
 package com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask;
 
+import android.provider.Settings;
 import android.util.Log;
 
 import org.json.JSONException;
