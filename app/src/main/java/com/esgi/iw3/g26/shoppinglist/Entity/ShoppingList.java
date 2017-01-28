@@ -21,6 +21,9 @@ public class ShoppingList implements IHashMapSerialize {
     public static final String SHOPPING_LIST_DATE_KEY = "created_date";
     public static final String SHOPPING_LIST_COMPLETED_KEY = "completed";
 
+    public static final String SHOPPING_LIST_TEXT_1 = "text1";
+    public static final String SHOPPING_LIST_TEXT_2 = "text2";
+
     /**
      * Constructor
      *
@@ -91,12 +94,17 @@ public class ShoppingList implements IHashMapSerialize {
     @Override
     public HashMap<String, String> toHashMap() {
         DateFormat df = new SimpleDateFormat("MMM dd, yyyy");
+        DateFormat df2 = new SimpleDateFormat("MMMM dd, yyyy");
         String todo = this.completed ? "(completed)" : "(active)";
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("id",this.id.toString());
-        map.put(SHOPPING_LIST_NAME_KEY, todo + " " + this.name);
-        map.put(SHOPPING_LIST_DATE_KEY, "Created on " + df.format(this.createdAt));
+        map.put(SHOPPING_LIST_ID_KEY, this.id.toString());
+        map.put(SHOPPING_LIST_NAME_KEY, this.name);
+        map.put(SHOPPING_LIST_DATE_KEY, df2.format(this.createdAt).toString());
+        map.put(SHOPPING_LIST_COMPLETED_KEY, this.completed ? "0" : "1");
+//User to display in listView
+        map.put(SHOPPING_LIST_TEXT_1, todo + " " + this.name);
+        map.put(SHOPPING_LIST_TEXT_2, "Created on " + df.format(this.createdAt));
         return map;
     }
 }

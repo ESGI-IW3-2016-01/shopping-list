@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductListTask;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListCreateTask;
+import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
 
 import org.json.JSONObject;
@@ -29,6 +30,9 @@ public class ListActivity extends Activity implements IHttpRequestListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
+
+        Intent intent = getIntent();
+        Log.d("intent", intent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY));
     }
 
     @Override

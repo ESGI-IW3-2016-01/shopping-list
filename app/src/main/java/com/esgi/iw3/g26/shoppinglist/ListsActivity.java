@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 
 public class ListsActivity extends Activity implements IHttpRequestListener {
@@ -63,8 +65,25 @@ public class ListsActivity extends Activity implements IHttpRequestListener {
                 new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY, ShoppingList.SHOPPING_LIST_DATE_KEY},
                 new int[]{android.R.id.text1, android.R.id.text2});
         listView.setAdapter(simpleAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Object o = listView.getItemAtPosition(i);
+                HashMap<String, String> map = (HashMap<String, String>) o;
+                redirectToShoppingList(map);
+            }
+        });
     }
 
+    public void redirectToShoppingList(HashMap<String, String> map) {
+        Intent i = new Intent(getApplicationContext(), ListActivity.class);
+        i.putExtra(ShoppingList.SHOPPING_LIST_ID_KEY, Integer.getInteger(map.get(ShoppingList.SHOPPING_LIST_ID_KEY)));
+        i.putExtra(ShoppingList.SHOPPING_LIST_NAME_KEY, map.get(ShoppingList.SHOPPING_LIST_NAME_KEY));
+        i.putExtra(ShoppingList.SHOPPING_LIST_DATE_KEY, map.get(ShoppingList.SHOPPING_LIST_DATE_KEY));
+        i.putExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY, map.get(ShoppingList.SHOPPING_LIST_COMPLETED_KEY) == "0" ? true : false);
+        startActivity(i);
+    }
 
     @Override
     public void onSuccess(JSONObject object) {
