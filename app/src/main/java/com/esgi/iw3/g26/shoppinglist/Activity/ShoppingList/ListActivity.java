@@ -18,9 +18,12 @@ import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
 import com.esgi.iw3.g26.shoppinglist.R;
 import com.esgi.iw3.g26.shoppinglist.UserSession;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,6 +34,7 @@ public class ListActivity extends Activity implements IHttpRequestListener {
 
     private ProductListTask productListTask;
     private FloatingActionButton fab;
+    private FloatingActionButton deleteFab;
     private ListView listView;
     private UserSession session;
     private List<HashMap<String, String>> shoppingProductList = new ArrayList<>();
@@ -83,7 +87,25 @@ public class ListActivity extends Activity implements IHttpRequestListener {
     @Override
     public void onSuccess(JSONObject object) {
         Log.i("activity:List:success", object.toString());
+        this.shoppingProductList.clear();
 
+        try {
+            JSONArray array = object.getJSONArray("result");
+            if (array.length() <= 0) {
+//                TODO no shopping list yet
+            } else {
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject temp = (JSONObject) array.get(i);
+                    ShoppingList shoppingList = new ShoppingList(temp);
+                    shoppingProductList.add(shoppingList.toHashMap());
+                }
+//                Sort shopping list
+                Collections.reverse(shoppingProductList);
+            }
+        } catch (JSONException e) {
+
+        }
+        simpleAdapter.notifyDataSetChanged();
     }
 
     @Override
