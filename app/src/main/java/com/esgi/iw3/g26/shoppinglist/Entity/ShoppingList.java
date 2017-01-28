@@ -1,14 +1,13 @@
 package com.esgi.iw3.g26.shoppinglist.Entity;
 
-import android.util.Log;
-
 import com.esgi.iw3.g26.shoppinglist.Interface.IHashMapSerialize;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 import java.util.HashMap;
 
 public class ShoppingList implements IHashMapSerialize {
@@ -37,12 +36,15 @@ public class ShoppingList implements IHashMapSerialize {
         this.completed = completed;
     }
 
-    public ShoppingList(JSONObject object) throws JSONException {
-        this(object.optInt("id"),
-                object.optString(SHOPPING_LIST_NAME_KEY),
-                new Date(object.optString(SHOPPING_LIST_DATE_KEY)),
-                object.optBoolean(SHOPPING_LIST_COMPLETED_KEY, false)
-        );
+    public ShoppingList(int id, String name) {
+        this.id = id;
+        this.name = name;
+        this.createdAt = new Date();
+        this.completed = false;
+    }
+
+    public ShoppingList(JSONObject object) {
+        this(object.optInt("id"), object.optString(SHOPPING_LIST_NAME_KEY));
     }
 
     public Integer getId() {
@@ -88,10 +90,13 @@ public class ShoppingList implements IHashMapSerialize {
 
     @Override
     public HashMap<String, String> toHashMap() {
+        DateFormat df = new SimpleDateFormat("MMM dd, yyyy");
+        String todo = this.completed ? "(active)" : "(completed)";
+
         HashMap<String, String> map = new HashMap<>();
-        map.put("id", this.id.toString());
-        map.put(SHOPPING_LIST_DATE_KEY, this.createdAt.toString());
-        map.put(SHOPPING_LIST_COMPLETED_KEY, this.completed.toString());
+        map.put("id",this.id.toString());
+        map.put(SHOPPING_LIST_NAME_KEY, todo + " " + this.name);
+        map.put(SHOPPING_LIST_DATE_KEY, "Created on " + df.format(this.createdAt));
         return map;
     }
 }

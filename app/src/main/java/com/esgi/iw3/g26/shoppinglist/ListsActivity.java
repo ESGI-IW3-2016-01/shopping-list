@@ -1,22 +1,19 @@
 package com.esgi.iw3.g26.shoppinglist;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListListTask;
-import com.esgi.iw3.g26.shoppinglist.Entity.Product;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
-import com.esgi.iw3.g26.shoppinglist.Entity.User;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
 
 import org.json.JSONArray;
@@ -24,16 +21,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class ListsActivity extends ListActivity implements IHttpRequestListener {
+public class ListsActivity extends Activity implements IHttpRequestListener {
 
     private ShoppingListListTask listListTask;
     private UserSession session;
     private ListView listView;
-    private Button fab;
+    private FloatingActionButton fab;
     private List<HashMap<String, String>> shoppinglistList = new ArrayList<>();
     private SimpleAdapter simpleAdapter;
 
@@ -42,6 +40,7 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
+
         this.session = new UserSession(getApplicationContext());
 
         listView = (ListView) findViewById(android.R.id.list);
@@ -49,18 +48,18 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
         listListTask.setListener(this);
         listListTask.execute();
 
-        fab = (Button) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.shopping_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), NewListListActivity.class);
-//                startActivity(i);
+                Intent i = new Intent(getApplicationContext(), CreateListActivity.class);
+                startActivity(i);
             }
         });
 
         simpleAdapter = new SimpleAdapter(this,
                 shoppinglistList,
-                android.R.layout.simple_selectable_list_item,
+                android.R.layout.simple_list_item_2,
                 new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY, ShoppingList.SHOPPING_LIST_DATE_KEY},
                 new int[]{android.R.id.text1, android.R.id.text2});
         listView.setAdapter(simpleAdapter);
@@ -82,6 +81,8 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
                     ShoppingList shoppingList = new ShoppingList(temp);
                     shoppinglistList.add(shoppingList.toHashMap());
                 }
+//                Sort shopping list
+                Collections.reverse(shoppinglistList);
             }
         } catch (JSONException e) {
 
@@ -100,7 +101,7 @@ public class ListsActivity extends ListActivity implements IHttpRequestListener 
 
         CharSequence text = object.optString("msg");
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, text, 3);
+        Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.BOTTOM, 0, 0);
         toast.show();
     }

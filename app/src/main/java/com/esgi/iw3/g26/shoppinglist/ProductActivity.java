@@ -42,8 +42,6 @@ public class ProductActivity extends Activity implements IHttpRequestListener {
 
     public void addListenerOnButton() {
 
-        button = (Button) findViewById(R.id.list_saveList_button);
-
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -57,7 +55,6 @@ public class ProductActivity extends Activity implements IHttpRequestListener {
 
                 int quantity = Integer.parseInt(editText1.getText().toString());
                 double price = Double.parseDouble(editText1.getText().toString());
-
 
                 session = new UserSession(getApplicationContext());
                 String token = session.getToken();
