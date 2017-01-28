@@ -15,9 +15,13 @@ public class Product implements IHashMapSerialize {
     private Integer quantity;
     private Double price;
 
+    public static final String PRODUCT_ID_KEY = "id";
     public static final String PRODUCT_NAME_KEY = "name";
     public static final String PRODUCT_QUANTITY_KEY = "quantity";
     public static final String PRODUCT_PRICE_KEY = "price";
+
+    public static final String PRODUCT_LIST_TEXT_1 = "text1";
+    public static final String PRODUCT_LIST_TEXT_2 = "text2";
 
     /**
      * Constructor
@@ -26,7 +30,7 @@ public class Product implements IHashMapSerialize {
      * @param quantity
      * @param price
      */
-    public Product(int id, String name, int quantity, double price) {
+    public Product(int id, String name, Integer quantity, Double price) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
@@ -90,7 +94,10 @@ public class Product implements IHashMapSerialize {
 
     public HashMap<String, String> toHashMap() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("id", this.id.toString());
+        map.put(PRODUCT_LIST_TEXT_1, name + " (x " + quantity + ")");
+        map.put(PRODUCT_LIST_TEXT_2, "$" + price);
+
+        map.put(PRODUCT_ID_KEY, this.id.toString());
         map.put(PRODUCT_NAME_KEY, this.name);
         map.put(PRODUCT_QUANTITY_KEY, this.quantity.toString());
         map.put(PRODUCT_PRICE_KEY, this.price.toString());
