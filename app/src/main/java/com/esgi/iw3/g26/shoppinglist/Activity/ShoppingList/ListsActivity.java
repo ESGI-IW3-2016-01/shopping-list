@@ -74,6 +74,16 @@ public class ListsActivity extends Activity implements IHttpRequestListener {
                 redirectToShoppingList(map);
             }
         });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Object o = listView.getItemAtPosition(i);
+                HashMap<String, String> map = (HashMap<String, String>) o;
+                redirectToShoppingEditList(map);
+                return true;
+            }
+        });
     }
 
     public void redirectToShoppingList(HashMap<String, String> map) {
@@ -82,6 +92,13 @@ public class ListsActivity extends Activity implements IHttpRequestListener {
         i.putExtra(ShoppingList.SHOPPING_LIST_NAME_KEY, map.get(ShoppingList.SHOPPING_LIST_NAME_KEY));
         i.putExtra(ShoppingList.SHOPPING_LIST_DATE_KEY, map.get(ShoppingList.SHOPPING_LIST_DATE_KEY));
         i.putExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY, map.get(ShoppingList.SHOPPING_LIST_COMPLETED_KEY) == "0" ? false : true);
+        startActivity(i);
+    }
+
+    public void redirectToShoppingEditList(HashMap<String, String> map) {
+        Intent i = new Intent(getApplicationContext(), EditListActivity.class);
+        i.putExtra(ShoppingList.SHOPPING_LIST_ID_KEY, map.get(ShoppingList.SHOPPING_LIST_ID_KEY));
+        i.putExtra(ShoppingList.SHOPPING_LIST_NAME_KEY, map.get(ShoppingList.SHOPPING_LIST_NAME_KEY));
         startActivity(i);
     }
 
