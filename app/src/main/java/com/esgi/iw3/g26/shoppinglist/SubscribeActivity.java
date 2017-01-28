@@ -41,6 +41,7 @@ public class SubscribeActivity extends Activity implements IHttpRequestListener 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribe);
+        this.session = new UserSession(getApplicationContext());
 
         Button subscribeButton = (Button) findViewById(R.id.email_subscribe_in_button);
         subscribeButton.setOnClickListener(new View.OnClickListener() {
