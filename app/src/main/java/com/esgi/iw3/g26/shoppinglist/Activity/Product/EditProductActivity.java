@@ -1,4 +1,4 @@
-package com.esgi.iw3.g26.shoppinglist;
+package com.esgi.iw3.g26.shoppinglist.Activity.Product;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,18 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductCreateTask;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductEditTask;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductRemoveTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.Product;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
+import com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList.ListActivity;
+import com.esgi.iw3.g26.shoppinglist.R;
+import com.esgi.iw3.g26.shoppinglist.UserSession;
 
 import org.json.JSONObject;
-
-/**
- * Created by Jolan on 24/01/2017.
- */
 
 public class EditProductActivity extends Activity implements IHttpRequestListener {
 

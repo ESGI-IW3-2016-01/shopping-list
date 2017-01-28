@@ -1,4 +1,4 @@
-package com.esgi.iw3.g26.shoppinglist;
+package com.esgi.iw3.g26.shoppinglist.Activity.User;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,12 +18,11 @@ import android.widget.Toast;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.UserTask.UserSubscribeTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.User;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
+import com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList.ListsActivity;
+import com.esgi.iw3.g26.shoppinglist.R;
+import com.esgi.iw3.g26.shoppinglist.UserSession;
 
 import org.json.JSONObject;
-
-/**
- * Created by Jolan on 24/01/2017.
- */
 
 public class SubscribeActivity extends Activity implements IHttpRequestListener {
 
@@ -74,10 +73,11 @@ public class SubscribeActivity extends Activity implements IHttpRequestListener 
             mEmailview.setError(getString(R.string.error_invalid_email));
         }
 
-        userSubscribeTask = new UserSubscribeTask(email,password,firstName,lastName);
+        userSubscribeTask = new UserSubscribeTask(email, password, firstName, lastName);
         userSubscribeTask.setListener(this);
         userSubscribeTask.execute();
     }
+
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         //return email.contains("@");

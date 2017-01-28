@@ -6,7 +6,7 @@ public abstract class AbstractApiTask extends AbstractTask {
 
     protected final String token;
 
-    protected  AbstractApiTask(String token) {
+    protected AbstractApiTask(String token) {
         this.token = token;
     }
 

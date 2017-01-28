@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activity.User.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,25 +24,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SubscribeActivity"
+            android:name=".Activity.User.SubscribeActivity"
             android:label="@string/title_activity_main"></activity>
         <activity
-        android:name=".ListsActivity"
+        android:name=".Activity.ShoppingList.ListsActivity"
         android:label="@string/title_activity_main"></activity>
         <activity
-            android:name=".ListActivity"
+            android:name=".Activity.ShoppingList.ListActivity"
             android:label="@string/title_activity_main"></activity>
         <activity
-            android:name=".CreateListActivity"
+            android:name=".Activity.ShoppingList.CreateListActivity"
             android:label="@string/title_activity_main"></activity>
         <activity
-            android:name=".EditListActivity"
+            android:name=".Activity.ShoppingList.EditListActivity"
             android:label="@string/title_activity_main"></activity>
         <activity
-            android:name=".CreateProductActivity"
+            android:name=".Activity.Product.CreateProductActivity"
             android:label="@string/title_activity_main"></activity>
         <activity
-            android:name=".EditProductActivity"
+            android:name=".Activity.Product.EditProductActivity"
             android:label="@string/title_activity_main"></activity>
         <!--TODO: changer le nom et le theme-->
     </application>

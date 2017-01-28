@@ -1,4 +1,4 @@
-package com.esgi.iw3.g26.shoppinglist;
+package com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListListTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
+import com.esgi.iw3.g26.shoppinglist.R;
+import com.esgi.iw3.g26.shoppinglist.UserSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.StringTokenizer;
-
 
 public class ListsActivity extends Activity implements IHttpRequestListener {
 

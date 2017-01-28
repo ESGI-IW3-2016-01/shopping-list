@@ -1,4 +1,4 @@
-package com.esgi.iw3.g26.shoppinglist;
+package com.esgi.iw3.g26.shoppinglist.Activity.Product;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,16 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList.ListActivity;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductCreateTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.Product;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
+import com.esgi.iw3.g26.shoppinglist.R;
+import com.esgi.iw3.g26.shoppinglist.UserSession;
 
 import org.json.JSONObject;
-
-/**
- * Created by Jolan on 24/01/2017.
- */
 
 public class CreateProductActivity extends Activity implements IHttpRequestListener {
 
@@ -40,7 +39,7 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
         listId = intent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
 
         addListenerOnButton();
-        String[] shoppinglistsKey = new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY,ShoppingList.SHOPPING_LIST_DATE_KEY,ShoppingList.SHOPPING_LIST_COMPLETED_KEY};
+        String[] shoppinglistsKey = new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY, ShoppingList.SHOPPING_LIST_DATE_KEY, ShoppingList.SHOPPING_LIST_COMPLETED_KEY};
     }
 
 
@@ -51,9 +50,9 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
             @Override
             public void onClick(View arg0) {
 
-                nameListProduct = (TextView)findViewById(R.id.nameList);
-                numberProduct = (EditText)findViewById(R.id.editNumberProduct);
-                priceProduct = (EditText)findViewById(R.id.editPrice);
+                nameListProduct = (TextView) findViewById(R.id.nameList);
+                numberProduct = (EditText) findViewById(R.id.editNumberProduct);
+                priceProduct = (EditText) findViewById(R.id.editPrice);
 
                 String nameList = nameListProduct.getText().toString();
 
@@ -63,7 +62,7 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
                 session = new UserSession(getApplicationContext());
                 String token = session.getToken();
 
-                createProductTask = new ProductCreateTask(token, listId,  nameList, quantity, price);
+                createProductTask = new ProductCreateTask(token, listId, nameList, quantity, price);
                 createProductTask.execute();
 
             }
@@ -79,7 +78,7 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
 
         Product objet = new Product(object);
 
-        Product product = new Product( objet.getId(), objet.getName(), objet.getQuantity(), objet.getPrice());
+        Product product = new Product(objet.getId(), objet.getName(), objet.getQuantity(), objet.getPrice());
 
         this.redirectToShoppingListActivity();
     }
@@ -95,7 +94,7 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
     }
 
     private void redirectToShoppingListActivity() {
-        Intent i = new Intent(getApplicationContext(), com.esgi.iw3.g26.shoppinglist.ListActivity.class);
+        Intent i = new Intent(getApplicationContext(), ListActivity.class);
         startActivity(i);
     }
 }

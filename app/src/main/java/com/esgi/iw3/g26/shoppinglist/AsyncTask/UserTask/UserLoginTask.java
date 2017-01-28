@@ -5,12 +5,6 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-// Login Success
-// {"code":"0","result":{"lastname":"","firstname":"","email":"","token":"d41d8cd98f00b204e9800998ecf8427e"}}
-
-// Login failed
-// {"code":"3","msg":"Login failed check your credentials"}
-
 public class UserLoginTask extends AbstractUserTask {
 
     public UserLoginTask(String email, String password) {

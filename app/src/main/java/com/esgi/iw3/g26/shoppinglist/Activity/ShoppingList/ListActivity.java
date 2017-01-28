@@ -1,4 +1,4 @@
-package com.esgi.iw3.g26.shoppinglist;
+package com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,16 +11,16 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.content.Intent;
 
+import com.esgi.iw3.g26.shoppinglist.Activity.Product.CreateProductActivity;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductListTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
+import com.esgi.iw3.g26.shoppinglist.R;
+import com.esgi.iw3.g26.shoppinglist.UserSession;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class ListActivity extends Activity implements IHttpRequestListener {
         } else {
             isActive = "Active";
         }
-        textView.setText(listName + " " + listDate + " " + isActive+ " " + listId);
+        textView.setText(listName + " " + listDate + " " + isActive + " " + listId);
 
         listView = (ListView) findViewById(android.R.id.list);
         productListTask = new ProductListTask(session.getToken(), listId);

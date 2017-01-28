@@ -1,4 +1,4 @@
-package com.esgi.iw3.g26.shoppinglist;
+package com.esgi.iw3.g26.shoppinglist.Activity.User;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -36,6 +36,9 @@ import android.widget.Toast;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.UserTask.UserLoginTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.User;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
+import com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList.ListsActivity;
+import com.esgi.iw3.g26.shoppinglist.R;
+import com.esgi.iw3.g26.shoppinglist.UserSession;
 
 import org.json.JSONObject;
 
@@ -308,7 +311,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         Log.d("activity:login:api", object.optString("msg"));
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, 3);
-        toast.setGravity(Gravity.BOTTOM,0,0);
+        toast.setGravity(Gravity.BOTTOM, 0, 0);
         toast.show();
     }
 
