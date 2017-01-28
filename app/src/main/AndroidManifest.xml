@@ -24,13 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-        android:name=".ListActivity"
-        android:label="@string/title_activity_main"
-        android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".SubscribeActivity"
+            android:label="@string/title_activity_main"></activity>
         <activity
         android:name=".ListsActivity"
         android:label="@string/title_activity_main"></activity>
