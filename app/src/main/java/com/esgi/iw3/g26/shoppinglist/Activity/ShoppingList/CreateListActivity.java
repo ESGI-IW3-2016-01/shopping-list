@@ -1,8 +1,8 @@
 package com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +15,7 @@ import com.esgi.iw3.g26.shoppinglist.UserSession;
 
 import org.json.JSONObject;
 
-public class CreateListActivity extends Activity implements IHttpRequestListener {
+public class CreateListActivity extends AppCompatActivity implements IHttpRequestListener {
 
     // UI References
     private TextView textView;

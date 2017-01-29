@@ -1,8 +1,8 @@
 package com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class ListActivity extends Activity implements IHttpRequestListener {
+public class ListActivity extends AppCompatActivity implements IHttpRequestListener {
 
     private ProductListTask productListTask;
     private UserSession session;

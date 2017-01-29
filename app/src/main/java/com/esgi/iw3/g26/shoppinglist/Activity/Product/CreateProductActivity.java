@@ -3,7 +3,6 @@ package com.esgi.iw3.g26.shoppinglist.Activity.Product;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Double2;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;

@@ -1,16 +1,14 @@
 package com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductRemoveTask;
-import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListCreateTask;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListEditTask;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListRemoveTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
@@ -20,7 +18,7 @@ import com.esgi.iw3.g26.shoppinglist.UserSession;
 
 import org.json.JSONObject;
 
-public class EditListActivity extends Activity implements IHttpRequestListener {
+public class EditListActivity extends AppCompatActivity implements IHttpRequestListener {
 
     // UI References
     private TextView textView;

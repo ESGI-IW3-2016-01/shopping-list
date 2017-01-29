@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -28,7 +30,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class ListsActivity extends Activity implements IHttpRequestListener {
+public class ListsActivity extends AppCompatActivity implements IHttpRequestListener {
 
     private ShoppingListListTask listListTask;
     private UserSession session;

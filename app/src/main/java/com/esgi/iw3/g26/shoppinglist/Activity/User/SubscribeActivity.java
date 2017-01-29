@@ -1,9 +1,9 @@
 package com.esgi.iw3.g26.shoppinglist.Activity.User;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,7 +24,7 @@ import com.esgi.iw3.g26.shoppinglist.UserSession;
 
 import org.json.JSONObject;
 
-public class SubscribeActivity extends Activity implements IHttpRequestListener {
+public class SubscribeActivity extends AppCompatActivity implements IHttpRequestListener {
 
     TextView content;
     ListView listView;
