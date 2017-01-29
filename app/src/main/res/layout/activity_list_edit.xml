@@ -36,6 +36,13 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <CheckBox
+                android:text="CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_isActive"
+                android:id="@+id/checkBoxIsActive" />
+
             <Button
                 android:id="@+id/create_list_button"
                 style="?android:textAppearanceSmall"
