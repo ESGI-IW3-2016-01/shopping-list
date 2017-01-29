@@ -1,14 +1,17 @@
 package com.esgi.iw3.g26.shoppinglist.Activity.Product;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList.ListActivity;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductCreateTask;
@@ -86,7 +89,11 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
 
     @Override
     public void onApiError(JSONObject object) {
-
+        CharSequence text = object.optString("msg");
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.BOTTOM, 0, 0);
+        toast.show();
     }
 
     private void redirectToShoppingListActivity() {
