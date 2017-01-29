@@ -41,16 +41,15 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
 
         session = new UserSession(getApplicationContext());
         button = (Button) findViewById(R.id.create_list_button);
-        textView = (TextView) findViewById(R.id.nameList);
+        textView = (EditText) findViewById(R.id.nameList);
 
         Intent intent = getIntent();
         id = intent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
         name = intent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
 
-        EditText nameView = (EditText) findViewById(R.id.nameList);
 
-        nameView.setText(name);
-        Button buttonDelete= (Button) findViewById(R.id.list_deleteProduct_button);
+        textView.setText(name);
+        Button buttonDelete= (Button) findViewById(R.id.list_deleteList_button);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
