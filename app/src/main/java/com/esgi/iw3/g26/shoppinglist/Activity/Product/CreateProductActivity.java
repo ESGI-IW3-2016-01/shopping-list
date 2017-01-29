@@ -21,9 +21,9 @@ import org.json.JSONObject;
 
 public class CreateProductActivity extends Activity implements IHttpRequestListener {
 
-    TextView nameListProduct;
-    Button button;
-    EditText numberProduct, priceProduct;
+    private TextView nameListProduct;
+    private Button button;
+    private EditText numberProduct, priceProduct;
 
     private String listId;
     private ProductCreateTask createProductTask = null;
@@ -35,9 +35,16 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        session = new UserSession(getApplicationContext());
+
         Intent intent = getIntent();
         listId = intent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
         button = (Button) findViewById(R.id.list_saveProduct_button);
+
+        nameListProduct = (TextView) findViewById(R.id.editText);
+        numberProduct = (EditText) findViewById(R.id.editNumberProduct);
+        priceProduct = (EditText) findViewById(R.id.editPrice);
+
         addListenerOnButton();
         String[] shoppinglistsKey = new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY, ShoppingList.SHOPPING_LIST_DATE_KEY, ShoppingList.SHOPPING_LIST_COMPLETED_KEY};
     }
@@ -49,37 +56,27 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
 
             @Override
             public void onClick(View arg0) {
-
-                nameListProduct = (TextView) findViewById(R.id.nameList);
-                numberProduct = (EditText) findViewById(R.id.editNumberProduct);
-                priceProduct = (EditText) findViewById(R.id.editPrice);
-
-                String nameList = nameListProduct.getText().toString();
-
-                int quantity = Integer.parseInt(numberProduct.getText().toString());
-                double price = Double.parseDouble(priceProduct.getText().toString());
-
-                session = new UserSession(getApplicationContext());
-                String token = session.getToken();
-
-                createProductTask = new ProductCreateTask(token, listId, nameList, quantity, price);
-                createProductTask.execute();
-
+                executeCreate();
             }
 
         });
 
     }
 
+    private void executeCreate() {
+        createProductTask = new ProductCreateTask(session.getToken(),
+                listId,
+                nameListProduct.getText().toString(),
+                Integer.parseInt(numberProduct.getText().toString()),
+                Double.parseDouble(priceProduct.getText().toString()));
+        createProductTask.setListener(this);
+        createProductTask.execute();
+    }
 
     @Override
     public void onSuccess(JSONObject object) {
-        Log.d("activity:login:success", object.toString());
-
-        Product objet = new Product(object);
-
-        Product product = new Product(objet.getId(), objet.getName(), objet.getQuantity(), objet.getPrice());
-
+        Log.d("product:create:success", object.toString());
+        Product product = new Product(object);
         this.redirectToShoppingListActivity();
     }
 
