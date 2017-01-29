@@ -53,12 +53,12 @@ public class ListActivity extends Activity implements IHttpRequestListener {
         fromIntent = getIntent();
         String listName = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
         String listDate = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_DATE_KEY);
+        String isActive = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY);
         listId = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
 
         TextView textView = (TextView) findViewById(R.id.textView);
 
-        String isActive;
-        if (ShoppingList.SHOPPING_LIST_COMPLETED_KEY.equals("1")) {
+        if (isActive.equals("1")) {
             isActive = "Completed";
         } else {
             isActive = "Active";
