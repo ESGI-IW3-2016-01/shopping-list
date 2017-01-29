@@ -24,25 +24,25 @@
         </activity>
         <activity
             android:name=".Activity.User.SubscribeActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_subscribe"></activity>
         <activity
         android:name=".Activity.ShoppingList.ListsActivity"
-        android:label="@string/title_activity_main"></activity>
+        android:label="@string/title_activity_lists"></activity>
         <activity
             android:name=".Activity.ShoppingList.ListActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_products"></activity>
         <activity
             android:name=".Activity.ShoppingList.CreateListActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_createList"></activity>
         <activity
             android:name=".Activity.ShoppingList.EditListActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_editList"></activity>
         <activity
             android:name=".Activity.Product.CreateProductActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_createProduct"></activity>
         <activity
             android:name=".Activity.Product.EditProductActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_editProduct"></activity>
         <!--TODO: changer le nom et le theme-->
     </application>
 
