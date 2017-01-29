@@ -22,9 +22,11 @@ import org.json.JSONObject;
 
 public class EditProductActivity extends AppCompatActivity implements IHttpRequestListener {
 
-    TextView nameListProduct;
-    EditText numberProduct, priceProduct;
+    EditText numberProduct, priceProduct, nameProduct;
     private String productId;
+    private String productName;
+    private String productPrice;
+    private String productQuantity;
 
     private ProductEditTask editProductTask;
     private ProductRemoveTask deleteProductTask;
@@ -36,12 +38,20 @@ public class EditProductActivity extends AppCompatActivity implements IHttpReque
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_edit);
         session = new UserSession(getApplicationContext());
+
         Intent intent = getIntent();
         productId = intent.getStringExtra(Product.PRODUCT_ID_KEY);
+        productName = intent.getStringExtra(Product.PRODUCT_NAME_KEY);
+        productPrice = intent.getStringExtra(Product.PRODUCT_PRICE_KEY);
+        productQuantity = intent.getStringExtra(Product.PRODUCT_QUANTITY_KEY);
 
-        nameListProduct = (TextView) findViewById(R.id.nameList);
+        nameProduct = (EditText) findViewById(R.id.editText);
         numberProduct = (EditText) findViewById(R.id.editNumberProduct);
         priceProduct = (EditText) findViewById(R.id.editPrice);
+
+        nameProduct.setText(productName);
+        numberProduct.setText(productQuantity);
+        priceProduct.setText(productPrice);
 
         addListenerOnButton();
     }
@@ -72,10 +82,9 @@ public class EditProductActivity extends AppCompatActivity implements IHttpReque
     }
 
     private void executeEdit() {
-        String nameList = nameListProduct.getText().toString();
         int quantity = TextUtils.isEmpty(numberProduct.getText().toString()) ? 1 : Integer.parseInt(numberProduct.getText().toString());
         double price = TextUtils.isEmpty(priceProduct.getText().toString()) ? 0.00 : Double.parseDouble(priceProduct.getText().toString());
-        editProductTask = new ProductEditTask(session.getToken(), productId, price, nameList, quantity);
+        editProductTask = new ProductEditTask(session.getToken(), productId, price, nameProduct.getText().toString(), quantity);
         editProductTask.setListener(this);
         editProductTask.execute();
     }
@@ -88,12 +97,12 @@ public class EditProductActivity extends AppCompatActivity implements IHttpReque
 
     @Override
     public void onFailure(String message) {
-
+        Log.i("Failure",message.toString());
     }
 
     @Override
     public void onApiError(JSONObject object) {
-
+        Log.i("Error", object.toString());
     }
 
     private void redirectToShoppingListActivity() {

@@ -13,16 +13,18 @@ public class ProductRemoveTask extends AbstractProductTask {
     public ProductRemoveTask(String token, String id) {
         super(token);
         this.id = id;
+        Log.i("testDelte","Delete");
     }
 
     @Override
     protected JSONObject doInBackground(Void... params) {
+        Log.i("testDelte","Delete2");
         String queryParameters =
                 "?" + "token" + "=" + this.token +
                         "&" + "id" + "=" + this.id;
 
         // API call
-        Log.d("product:remove", PRODUCT_CREATE_URL + queryParameters);
-        return getURL(PRODUCT_CREATE_URL + queryParameters);
+        Log.i("product:remove", PRODUCT_CREATE_URL + queryParameters);
+        return getURL(PRODUCT_REMOVE_URL + queryParameters);
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.content.Intent;
 
 import com.esgi.iw3.g26.shoppinglist.Activity.Product.CreateProductActivity;
+import com.esgi.iw3.g26.shoppinglist.Activity.Product.EditProductActivity;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductListTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.Product;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
@@ -88,6 +90,24 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
                 new String[]{Product.PRODUCT_LIST_TEXT_1, Product.PRODUCT_LIST_TEXT_2},
                 new int[]{android.R.id.text1, android.R.id.text2});
         listView.setAdapter(simpleAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Object o = listView.getItemAtPosition(i);
+                HashMap<String, String> map = (HashMap<String, String>) o;
+                redirectToEditProduct(map);
+            }
+        });
+    }
+
+    public void redirectToEditProduct(HashMap<String, String> map) {
+        Intent i = new Intent(getApplicationContext(), EditProductActivity.class);
+        i.putExtra(Product.PRODUCT_ID_KEY, map.get(Product.PRODUCT_ID_KEY));
+        i.putExtra(Product.PRODUCT_NAME_KEY, map.get(Product.PRODUCT_NAME_KEY));
+        i.putExtra(Product.PRODUCT_QUANTITY_KEY, map.get(Product.PRODUCT_QUANTITY_KEY));
+        i.putExtra(Product.PRODUCT_PRICE_KEY, map.get(Product.PRODUCT_PRICE_KEY));
+        startActivity(i);
     }
 
     @Override
