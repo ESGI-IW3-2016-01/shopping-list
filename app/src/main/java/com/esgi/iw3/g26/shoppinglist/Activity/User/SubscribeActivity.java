@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.UserTask.UserSubscribeTask;
@@ -26,13 +24,10 @@ import org.json.JSONObject;
 
 public class SubscribeActivity extends AppCompatActivity implements IHttpRequestListener {
 
-    TextView content;
-    ListView listView;
     private UserSubscribeTask userSubscribeTask;
-    private EditText mPasswordView;
-    private EditText mFirstNameView;
-    private EditText mLastNameView;
+    private EditText mPasswordView, mFirstNameView, mLastNameView;
     private AutoCompleteTextView mEmailview;
+    private Button subscribeButton;
     private UserSession session;
 
     @Override
@@ -42,13 +37,13 @@ public class SubscribeActivity extends AppCompatActivity implements IHttpRequest
         setContentView(R.layout.activity_subscribe);
         this.session = new UserSession(getApplicationContext());
 
-        Button subscribeButton = (Button) findViewById(R.id.email_subscribe_in_button);
-        subscribeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attemptConnect();
-            }
-        });
+//        subscribeButton = (Button) findViewById(R.id.email_subscribe_in_button);
+//        subscribeButton.@ckListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                attemptConnect();
+//            }
+//        });
     }
 
     private void attemptConnect() {
@@ -109,5 +104,6 @@ public class SubscribeActivity extends AppCompatActivity implements IHttpRequest
     private void redirectToShoppingListActivity() {
         Intent i = new Intent(getApplicationContext(), ListsActivity.class);
         startActivity(i);
+        finish();
     }
 }

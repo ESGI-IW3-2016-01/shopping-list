@@ -1,11 +1,9 @@
 package com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -32,17 +30,15 @@ import java.util.List;
 
 public class ListsActivity extends AppCompatActivity implements IHttpRequestListener {
 
-    private ShoppingListListTask listListTask;
     private UserSession session;
     private ListView listView;
-    private FloatingActionButton fab;
     private List<HashMap<String, String>> shoppinglistList = new ArrayList<>();
     private SimpleAdapter simpleAdapter;
 
     @Override
     protected void onResume() {
         super.onResume();
-        listListTask = new ShoppingListListTask(session.getToken());
+        ShoppingListListTask listListTask = new ShoppingListListTask(session.getToken());
         listListTask.setListener(this);
         listListTask.execute();
     }
@@ -53,8 +49,7 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
         this.session = new UserSession(getApplicationContext());
-
-        fab = (FloatingActionButton) findViewById(R.id.shopping_fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.shopping_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,18 +111,21 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
         try {
             JSONArray array = object.getJSONArray("result");
             if (array.length() <= 0) {
-//                TODO no shopping list yet
+                Toast toast = Toast.makeText(getApplicationContext(), "No Shopping List yet !", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.show();
             } else {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject temp = (JSONObject) array.get(i);
                     ShoppingList shoppingList = new ShoppingList(temp);
                     shoppinglistList.add(shoppingList.toHashMap());
                 }
-//                Sort shopping list
                 Collections.reverse(shoppinglistList);
             }
         } catch (JSONException e) {
-
+            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM, 0, 0);
+            toast.show();
         }
         simpleAdapter.notifyDataSetChanged();
     }
@@ -140,9 +138,7 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
     @Override
     public void onApiError(JSONObject object) {
         Log.d("activity:lists:api", object.optString("msg"));
-        CharSequence text = object.optString("msg");
-        Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(), object.optString("msg"), Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.BOTTOM, 0, 0);
         toast.show();
     }

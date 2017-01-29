@@ -72,13 +72,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         this.session = new UserSession(getApplicationContext());
 
-//        if (session.isUserLoggedIn()) {
-//            Log.d(this.getLocalClassName(),"user session exists");
-//            this.redirectToShoppingListActivity();
-//        } else {
-//            Log.d(this.getLocalClassName(),"user session does not exists");
-//        }
-
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -100,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
+                Log.d("Login", "PUSH PUSH");
             }
         });
 
@@ -109,11 +103,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SubscribeActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(session.isUserLoggedIn()) {
+            this.redirectToShoppingListActivity();
+        }
     }
 
     private void populateAutoComplete() {
@@ -166,11 +169,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
-
-        // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
@@ -195,12 +193,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.setListener(this);
@@ -209,14 +203,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        //return email.contains("@");
         return true;
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        //return password.length() > 4;
         return true;
     }
 
@@ -337,6 +327,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void redirectToShoppingListActivity() {
         Intent i = new Intent(getApplicationContext(), ListsActivity.class);
+        finish();
         startActivity(i);
     }
 }
