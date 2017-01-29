@@ -13,6 +13,7 @@ import android.content.Intent;
 
 import com.esgi.iw3.g26.shoppinglist.Activity.Product.CreateProductActivity;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductListTask;
+import com.esgi.iw3.g26.shoppinglist.Entity.Product;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
 import com.esgi.iw3.g26.shoppinglist.R;
@@ -29,28 +30,30 @@ import java.util.List;
 
 public class ListActivity extends Activity implements IHttpRequestListener {
 
-    TextView textView;
-    Button button;
-
     private ProductListTask productListTask;
-    private FloatingActionButton fab;
-    private FloatingActionButton deleteFab;
-    private ListView listView;
     private UserSession session;
     private List<HashMap<String, String>> shoppingProductList = new ArrayList<>();
     private SimpleAdapter simpleAdapter;
+    private String listId;
+    private Intent fromIntent;
+    private double total;
+    // UI References
+    private Button button;
+    private FloatingActionButton fab;
+    private FloatingActionButton deleteFab;
+    private ListView listView;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
-
         this.session = new UserSession(getApplicationContext());
 
-        Intent intent = getIntent();
-        String listName = intent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
-        String listDate = intent.getStringExtra(ShoppingList.SHOPPING_LIST_DATE_KEY);
-        String listId = intent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
+        fromIntent = getIntent();
+        String listName = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
+        String listDate = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_DATE_KEY);
+        listId = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
 
         TextView textView = (TextView) findViewById(R.id.textView);
 
@@ -60,7 +63,7 @@ public class ListActivity extends Activity implements IHttpRequestListener {
         } else {
             isActive = "Active";
         }
-        textView.setText(listName + " " + listDate + " " + isActive + " " + listId);
+        textView.setText(listName + " " + listDate + " " + isActive + " " + listId + " total : " + total);
 
         listView = (ListView) findViewById(android.R.id.list);
         productListTask = new ProductListTask(session.getToken(), listId);
@@ -71,7 +74,9 @@ public class ListActivity extends Activity implements IHttpRequestListener {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Redirect to create product page
                 Intent i = new Intent(getApplicationContext(), CreateProductActivity.class);
+                i.putExtras(fromIntent.getExtras());
                 startActivity(i);
             }
         });
@@ -79,7 +84,7 @@ public class ListActivity extends Activity implements IHttpRequestListener {
         simpleAdapter = new SimpleAdapter(this,
                 shoppingProductList,
                 android.R.layout.simple_list_item_2,
-                new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY, ShoppingList.SHOPPING_LIST_DATE_KEY},
+                new String[]{Product.PRODUCT_LIST_TEXT_1, Product.PRODUCT_LIST_TEXT_2},
                 new int[]{android.R.id.text1, android.R.id.text2});
         listView.setAdapter(simpleAdapter);
     }
@@ -88,7 +93,7 @@ public class ListActivity extends Activity implements IHttpRequestListener {
     public void onSuccess(JSONObject object) {
         Log.i("activity:List:success", object.toString());
         this.shoppingProductList.clear();
-
+        this.total = 0;
         try {
             JSONArray array = object.getJSONArray("result");
             if (array.length() <= 0) {
@@ -96,8 +101,9 @@ public class ListActivity extends Activity implements IHttpRequestListener {
             } else {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject temp = (JSONObject) array.get(i);
-                    ShoppingList shoppingList = new ShoppingList(temp);
-                    shoppingProductList.add(shoppingList.toHashMap());
+                    Product product = new Product(temp);
+                    shoppingProductList.add(product.toHashMap());
+                    total += (product.getQuantity() * product.getPrice());
                 }
 //                Sort shopping list
                 Collections.reverse(shoppingProductList);

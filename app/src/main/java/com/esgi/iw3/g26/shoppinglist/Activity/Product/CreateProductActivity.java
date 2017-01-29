@@ -3,6 +3,8 @@ package com.esgi.iw3.g26.shoppinglist.Activity.Product;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Double2;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,13 +36,12 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-
         session = new UserSession(getApplicationContext());
 
         Intent intent = getIntent();
         listId = intent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
-        button = (Button) findViewById(R.id.list_saveProduct_button);
 
+        button = (Button) findViewById(R.id.list_saveProduct_button);
         nameListProduct = (TextView) findViewById(R.id.editText);
         numberProduct = (EditText) findViewById(R.id.editNumberProduct);
         priceProduct = (EditText) findViewById(R.id.editPrice);
@@ -64,11 +65,13 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
     }
 
     private void executeCreate() {
+        int quantity = TextUtils.isEmpty(numberProduct.getText().toString()) ? 1 : Integer.parseInt(numberProduct.getText().toString());
+        double price = TextUtils.isEmpty(priceProduct.getText().toString()) ? 0.00 : Double.parseDouble(priceProduct.getText().toString());
         createProductTask = new ProductCreateTask(session.getToken(),
                 listId,
                 nameListProduct.getText().toString(),
-                Integer.parseInt(numberProduct.getText().toString()),
-                Double.parseDouble(priceProduct.getText().toString()));
+                quantity,
+                price);
         createProductTask.setListener(this);
         createProductTask.execute();
     }
@@ -92,6 +95,7 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
 
     private void redirectToShoppingListActivity() {
         Intent i = new Intent(getApplicationContext(), ListActivity.class);
+        i.putExtras(getIntent().getExtras());
         startActivity(i);
     }
 }
