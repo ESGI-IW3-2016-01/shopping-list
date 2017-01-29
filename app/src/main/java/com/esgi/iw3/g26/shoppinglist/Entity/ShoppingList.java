@@ -27,8 +27,8 @@ public class ShoppingList implements IHashMapSerialize {
     /**
      * Constructor
      *
-     * @param id Shopping List id
-     * @param name Shopping List name
+     * @param id        Shopping List id
+     * @param name      Shopping List name
      * @param createdAt Shopping List date of creation
      * @param completed Shopping List is completed or not
      */
@@ -47,7 +47,17 @@ public class ShoppingList implements IHashMapSerialize {
     }
 
     public ShoppingList(JSONObject object) {
-        this(object.optInt("id"), object.optString(SHOPPING_LIST_NAME_KEY));
+        Boolean completed = object.optString(SHOPPING_LIST_COMPLETED_KEY).equals("1");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = format.parse(object.optString(SHOPPING_LIST_DATE_KEY));
+        } catch (Exception e) {
+        }
+        this.id = object.optInt("id");
+        this.name = object.optString(SHOPPING_LIST_NAME_KEY);
+        this.createdAt = date;
+        this.completed = completed;
     }
 
     public Integer getId() {
@@ -101,7 +111,7 @@ public class ShoppingList implements IHashMapSerialize {
         map.put(SHOPPING_LIST_ID_KEY, this.id.toString());
         map.put(SHOPPING_LIST_NAME_KEY, this.name);
         map.put(SHOPPING_LIST_DATE_KEY, df2.format(this.createdAt).toString());
-        map.put(SHOPPING_LIST_COMPLETED_KEY, this.completed ? "0" : "1");
+        map.put(SHOPPING_LIST_COMPLETED_KEY, this.completed ? "1" : "0");
         //User to display in listView
         map.put(SHOPPING_LIST_TEXT_1, todo + " " + this.name);
         map.put(SHOPPING_LIST_TEXT_2, "Created on " + df.format(this.createdAt));
