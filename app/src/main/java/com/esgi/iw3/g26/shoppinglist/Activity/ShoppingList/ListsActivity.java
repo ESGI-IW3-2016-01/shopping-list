@@ -42,7 +42,6 @@ public class ListsActivity extends Activity implements IHttpRequestListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
-
         this.session = new UserSession(getApplicationContext());
 
         listView = (ListView) findViewById(android.R.id.list);
@@ -65,6 +64,7 @@ public class ListsActivity extends Activity implements IHttpRequestListener {
                 new String[]{ShoppingList.SHOPPING_LIST_TEXT_1, ShoppingList.SHOPPING_LIST_TEXT_2},
                 new int[]{android.R.id.text1, android.R.id.text2});
         listView.setAdapter(simpleAdapter);
+        simpleAdapter.notifyDataSetChanged();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

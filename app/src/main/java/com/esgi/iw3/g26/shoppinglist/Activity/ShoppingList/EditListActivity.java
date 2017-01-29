@@ -46,14 +46,12 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
         Intent intent = getIntent();
         id = intent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
         name = intent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
-
-
         textView.setText(name);
+
         Button buttonDelete= (Button) findViewById(R.id.list_deleteList_button);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-
                 executeDelete(id);
             }
         });
@@ -76,7 +74,7 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
 
     private void executeCreate() {
 
-        editListTask = new ShoppingListEditTask(session.getToken(), id, name, completed);
+        editListTask = new ShoppingListEditTask(session.getToken(), id, textView.getText().toString(), completed);
         editListTask.setListener(this);
         editListTask.execute();
     }

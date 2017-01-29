@@ -44,4 +44,13 @@ public class ShoppingListEditTask extends AbstractShoppingListTask {
         Log.d("shoppingList:edit", SHOPPING_LIST_EDIT_URL + queryParameters);
         return getURL(SHOPPING_LIST_EDIT_URL + queryParameters);
     }
+
+    @Override
+    protected void onPostExecute(JSONObject response) {
+        if (response.has("code") && response.optInt("code") == 0 && response.optInt("result") == 1) {
+            this.listener.onSuccess(response);
+        } else {
+            this.listener.onApiError(response);
+        }
+    }
 }
