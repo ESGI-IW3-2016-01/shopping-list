@@ -101,6 +101,7 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
         Intent i = new Intent(getApplicationContext(), EditListActivity.class);
         i.putExtra(ShoppingList.SHOPPING_LIST_ID_KEY, map.get(ShoppingList.SHOPPING_LIST_ID_KEY));
         i.putExtra(ShoppingList.SHOPPING_LIST_NAME_KEY, map.get(ShoppingList.SHOPPING_LIST_NAME_KEY));
+        i.putExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY, map.get(ShoppingList.SHOPPING_LIST_COMPLETED_KEY));
         startActivity(i);
     }
 

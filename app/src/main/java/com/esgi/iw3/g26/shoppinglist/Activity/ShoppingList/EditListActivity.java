@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -22,10 +23,13 @@ public class EditListActivity extends AppCompatActivity implements IHttpRequestL
 
     // UI References
     private TextView textView;
-    private Button button, buttonDelete;
+    private Button buttonDelete;
+    private CheckBox completedView;
+    private Button button;
     private String id;
     private String name;
-    private Boolean completed;
+    private String isActive;
+    private String completed;
 
     private ShoppingListEditTask editListTask;
     private ShoppingListRemoveTask deleteListTask = null;
@@ -41,12 +45,21 @@ public class EditListActivity extends AppCompatActivity implements IHttpRequestL
         button = (Button) findViewById(R.id.create_list_button);
         buttonDelete = (Button) findViewById(R.id.list_deleteList_button);
         textView = (EditText) findViewById(R.id.nameList);
+        completedView = (CheckBox) findViewById(R.id.checkBoxIsActive);
 
         Intent intent = getIntent();
         id = intent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
         name = intent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
+        completed = intent.getStringExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY);
+
+        if (completed.equals("1")) {
+            completedView.setChecked(false);
+        } else {
+            completedView.setChecked(true);
+        }
         textView.setText(name);
 
+        Button buttonDelete= (Button) findViewById(R.id.list_deleteList_button);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -68,7 +81,7 @@ public class EditListActivity extends AppCompatActivity implements IHttpRequestL
     }
 
     private void executeCreate() {
-        editListTask = new ShoppingListEditTask(session.getToken(), id, textView.getText().toString(), completed);
+        editListTask = new ShoppingListEditTask(session.getToken(), id, textView.getText().toString(), completedView.isChecked());
         editListTask.setListener(this);
         editListTask.execute();
     }
