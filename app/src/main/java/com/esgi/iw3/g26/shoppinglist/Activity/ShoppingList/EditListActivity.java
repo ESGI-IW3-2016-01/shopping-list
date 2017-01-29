@@ -37,7 +37,7 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_list_edit);
 
         session = new UserSession(getApplicationContext());
         button = (Button) findViewById(R.id.create_list_button);
