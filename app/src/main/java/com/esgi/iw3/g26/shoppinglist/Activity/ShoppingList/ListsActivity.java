@@ -40,16 +40,19 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
     private SimpleAdapter simpleAdapter;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        listListTask = new ShoppingListListTask(session.getToken());
+        listListTask.setListener(this);
+        listListTask.execute();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
         this.session = new UserSession(getApplicationContext());
-
-        listView = (ListView) findViewById(android.R.id.list);
-        listListTask = new ShoppingListListTask(session.getToken());
-        listListTask.setListener(this);
-        listListTask.execute();
 
         fab = (FloatingActionButton) findViewById(R.id.shopping_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,14 +63,7 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
             }
         });
 
-        simpleAdapter = new SimpleAdapter(this,
-                shoppinglistList,
-                android.R.layout.simple_list_item_2,
-                new String[]{ShoppingList.SHOPPING_LIST_TEXT_1, ShoppingList.SHOPPING_LIST_TEXT_2},
-                new int[]{android.R.id.text1, android.R.id.text2});
-        listView.setAdapter(simpleAdapter);
-        simpleAdapter.notifyDataSetChanged();
-
+        listView = (ListView) findViewById(android.R.id.list);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -86,6 +82,13 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
                 return true;
             }
         });
+
+        simpleAdapter = new SimpleAdapter(this,
+                shoppinglistList,
+                android.R.layout.simple_list_item_2,
+                new String[]{ShoppingList.SHOPPING_LIST_TEXT_1, ShoppingList.SHOPPING_LIST_TEXT_2},
+                new int[]{android.R.id.text1, android.R.id.text2});
+        listView.setAdapter(simpleAdapter);
     }
 
     public void redirectToShoppingList(HashMap<String, String> map) {
@@ -137,7 +140,6 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
     @Override
     public void onApiError(JSONObject object) {
         Log.d("activity:lists:api", object.optString("msg"));
-
         CharSequence text = object.optString("msg");
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);

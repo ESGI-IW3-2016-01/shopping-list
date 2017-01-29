@@ -61,14 +61,13 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
         String isActive = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY);
         listId = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
 
-        TextView textView = (TextView) findViewById(R.id.textView);
-
         if (isActive.equals("1")) {
             isActive = "Active";
         } else {
             isActive = "Completed";
         }
 
+        textView = (TextView) findViewById(R.id.textView);
         textView.setText(listName + " " + listDate + " " + isActive + " " + listId + " total : " + total);
 
         listView = (ListView) findViewById(android.R.id.list);
