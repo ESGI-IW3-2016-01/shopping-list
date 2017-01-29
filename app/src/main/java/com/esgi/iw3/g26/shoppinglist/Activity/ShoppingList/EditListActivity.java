@@ -55,14 +55,10 @@ public class EditListActivity extends AppCompatActivity implements IHttpRequestL
         name = intent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
         completed = intent.getStringExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY);
 
-        if (completed.equals("1")) {
-            completedView.setChecked(false);
-        } else {
-            completedView.setChecked(true);
-        }
+        completedView.setChecked(completed.equals("1"));
         textView.setText(name);
 
-        Button buttonDelete= (Button) findViewById(R.id.list_deleteList_button);
+        Button buttonDelete = (Button) findViewById(R.id.list_deleteList_button);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -84,14 +80,17 @@ public class EditListActivity extends AppCompatActivity implements IHttpRequestL
     }
 
     private void executeCreate() {
-        editListTask = new ShoppingListEditTask(session.getToken(), id, textView.getText().toString(), completedView.isChecked());
+        if (name.equals(textView.getText().toString())) {
+            editListTask = new ShoppingListEditTask(session.getToken(), id, completedView.isChecked());
+        } else {
+            editListTask = new ShoppingListEditTask(session.getToken(), id, textView.getText().toString(), completedView.isChecked());
+        }
         editListTask.setListener(this);
         editListTask.execute();
     }
 
     @Override
     public void onSuccess(JSONObject object) {
-        Log.i("activity:list:edit", object.toString());
         Intent i = new Intent(getApplicationContext(), ListsActivity.class);
         startActivity(i);
     }

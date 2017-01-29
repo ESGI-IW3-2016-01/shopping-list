@@ -37,7 +37,7 @@ public class ShoppingListEditTask extends AbstractShoppingListTask {
             queryParameters += "&" + "name" + "=" + this.name;
         }
         if (null != this.completed) {
-            queryParameters += "&" + "completed" + "=" + this.completed;
+            queryParameters += "&" + "completed" + "=" + (this.completed ? "1" : "0");
         }
 
         // API call
