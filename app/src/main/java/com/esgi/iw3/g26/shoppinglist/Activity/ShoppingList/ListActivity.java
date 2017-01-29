@@ -48,6 +48,7 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
     private FloatingActionButton deleteFab;
     private ListView listView;
     private TextView textView;
+    private String listName, listDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +57,9 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
         this.session = new UserSession(getApplicationContext());
 
         fromIntent = getIntent();
-        String listName = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
-        String listDate = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_DATE_KEY);
-        String isActive = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_COMPLETED_KEY);
+        listName = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
+        listDate = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_DATE_KEY);
         listId = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
-
-        if (isActive.equals("1")) {
-            isActive = "Active";
-        } else {
-            isActive = "Completed";
-        }
-
-        textView = (TextView) findViewById(R.id.textView);
-        textView.setText(listName + " " + listDate + " " + isActive + " " + listId + " total : " + total);
 
         listView = (ListView) findViewById(android.R.id.list);
         productListTask = new ProductListTask(session.getToken(), listId);
@@ -135,6 +126,7 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
 
         }
         simpleAdapter.notifyDataSetChanged();
+        setTitle(listName + " | Total : $ " + total);
     }
 
     @Override
