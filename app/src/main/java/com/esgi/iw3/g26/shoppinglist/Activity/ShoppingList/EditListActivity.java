@@ -24,7 +24,7 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
 
     // UI References
     private TextView textView;
-    private Button button;
+    private Button button, buttonDelete;
     private String id;
     private String name;
     private Boolean completed;
@@ -38,9 +38,10 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_edit);
-
         session = new UserSession(getApplicationContext());
+
         button = (Button) findViewById(R.id.create_list_button);
+        buttonDelete = (Button) findViewById(R.id.list_deleteList_button);
         textView = (EditText) findViewById(R.id.nameList);
 
         Intent intent = getIntent();
@@ -48,14 +49,12 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
         name = intent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
         textView.setText(name);
 
-        Button buttonDelete= (Button) findViewById(R.id.list_deleteList_button);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                executeDelete(id);
+                executeDelete();
             }
         });
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -64,16 +63,13 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
         });
     }
 
-    private void executeDelete(String id) {
-
-        session = new UserSession(getApplicationContext());
-        String token = session.getToken();
-        deleteListTask = new ShoppingListRemoveTask(token, id);
+    private void executeDelete() {
+        deleteListTask = new ShoppingListRemoveTask(session.getToken(), id);
+        deleteListTask.setListener(this);
         deleteListTask.execute();
     }
 
     private void executeCreate() {
-
         editListTask = new ShoppingListEditTask(session.getToken(), id, textView.getText().toString(), completed);
         editListTask.setListener(this);
         editListTask.execute();
@@ -82,8 +78,6 @@ public class EditListActivity extends Activity implements IHttpRequestListener {
     @Override
     public void onSuccess(JSONObject object) {
         Log.i("activity:list:edit", object.toString());
-        // Redirect to Shopping list Listing after creation
-        // TODO : toast ?
         Intent i = new Intent(getApplicationContext(), ListsActivity.class);
         startActivity(i);
     }

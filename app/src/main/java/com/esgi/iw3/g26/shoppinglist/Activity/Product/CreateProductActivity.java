@@ -47,12 +47,10 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
         priceProduct = (EditText) findViewById(R.id.editPrice);
 
         addListenerOnButton();
-        String[] shoppinglistsKey = new String[]{ShoppingList.SHOPPING_LIST_NAME_KEY, ShoppingList.SHOPPING_LIST_DATE_KEY, ShoppingList.SHOPPING_LIST_COMPLETED_KEY};
     }
 
 
-    public void addListenerOnButton() {
-
+    private void addListenerOnButton() {
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -61,7 +59,6 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
             }
 
         });
-
     }
 
     private void executeCreate() {
