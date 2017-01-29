@@ -37,10 +37,9 @@
             </android.support.design.widget.TextInputLayout>
 
             <CheckBox
-                android:text="CheckBox"
+                android:text="@string/prompt_isActive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_isActive"
                 android:id="@+id/checkBoxIsActive" />
 
             <Button
@@ -60,10 +59,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="string/action_remove"
+                android:text="@string/action_remove"
                 android:textStyle="bold"
-                android:textColor="@android:color/holo_red_light"
-                android:background="@color/colorPrimaryDark" />
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_red_light" />
 
         </LinearLayout>
     </ScrollView>
