@@ -35,7 +35,7 @@
     <string name="title_activity_lists">Your Shopping Lists</string>
     <string name="title_activity_products">Your products List</string>
     <string name="title_activity_createList">Create list</string>
-    <string name="title_activity_editList">Edit list</string>
+    <string name="title_activity_editList">Edit Shopping list</string>
     <string name="title_activity_createProduct">Create product</string>
     <string name="title_activity_editProduct">Edit product</string>
 </resources>

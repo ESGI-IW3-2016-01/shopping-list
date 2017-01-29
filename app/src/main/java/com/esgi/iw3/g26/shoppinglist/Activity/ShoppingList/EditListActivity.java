@@ -93,6 +93,7 @@ public class EditListActivity extends AppCompatActivity implements IHttpRequestL
     public void onSuccess(JSONObject object) {
         Intent i = new Intent(getApplicationContext(), ListsActivity.class);
         startActivity(i);
+        finish();
     }
 
     @Override
