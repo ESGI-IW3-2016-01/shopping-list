@@ -1,18 +1,21 @@
 package com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.esgi.iw3.g26.shoppinglist.Activity.User.LoginActivity;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ShoppingListTask.ShoppingListListTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
 import com.esgi.iw3.g26.shoppinglist.Interface.IHttpRequestListener;
@@ -86,6 +89,30 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
         listView.setAdapter(simpleAdapter);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_button, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                session.logoutUser();
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                Toast toast = Toast.makeText(getApplicationContext(), "Logout...", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 100);
+                toast.show();
+                startActivity(i);
+                finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void redirectToShoppingList(HashMap<String, String> map) {
         Intent i = new Intent(getApplicationContext(), ListActivity.class);
         i.putExtra(ShoppingList.SHOPPING_LIST_ID_KEY, map.get(ShoppingList.SHOPPING_LIST_ID_KEY));
@@ -139,7 +166,7 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
     public void onApiError(JSONObject object) {
         Log.d("activity:lists:api", object.optString("msg"));
         Toast toast = Toast.makeText(getApplicationContext(), object.optString("msg"), Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM, 0, 0);
+        toast.setGravity(Gravity.BOTTOM, 0, 100);
         toast.show();
     }
 }

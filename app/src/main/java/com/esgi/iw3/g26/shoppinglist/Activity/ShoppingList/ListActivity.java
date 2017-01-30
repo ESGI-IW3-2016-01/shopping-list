@@ -6,6 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 
 import com.esgi.iw3.g26.shoppinglist.Activity.Product.CreateProductActivity;
 import com.esgi.iw3.g26.shoppinglist.Activity.Product.EditProductActivity;
+import com.esgi.iw3.g26.shoppinglist.Activity.User.LoginActivity;
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductListTask;
 import com.esgi.iw3.g26.shoppinglist.Entity.Product;
 import com.esgi.iw3.g26.shoppinglist.Entity.ShoppingList;
@@ -101,6 +105,30 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
         i.putExtra(Product.PRODUCT_QUANTITY_KEY, map.get(Product.PRODUCT_QUANTITY_KEY));
         i.putExtra(Product.PRODUCT_PRICE_KEY, map.get(Product.PRODUCT_PRICE_KEY));
         startActivity(i);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_button, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                session.logoutUser();
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                Toast toast = Toast.makeText(getApplicationContext(), "Logout...", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 10, 0);
+                toast.show();
+                startActivity(i);
+                finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

@@ -94,7 +94,9 @@ public class EditProductActivity extends AppCompatActivity implements IHttpReque
 
     @Override
     public void onSuccess(JSONObject object) {
-        Log.d("product:edit:success", object.toString());
+        Toast toast = Toast.makeText(getApplicationContext(), "Edit successful", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.BOTTOM, 10, 0);
+        toast.show();
         this.redirectToShoppingListActivity();
     }
 
