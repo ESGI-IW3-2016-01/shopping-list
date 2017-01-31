@@ -3,6 +3,7 @@ package com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -51,6 +52,7 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
     private FloatingActionButton fab;
     private FloatingActionButton deleteFab;
     private ListView listView;
+    private SwipeRefreshLayout mySwipeRefreshLayout;
     private TextView textView;
     private String listName, listDate;
 
@@ -66,9 +68,7 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
         listId = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
 
         listView = (ListView) findViewById(android.R.id.list);
-        productListTask = new ProductListTask(session.getToken(), listId);
-        productListTask.setListener(this);
-        productListTask.execute();
+        loadData();
 
         fab = (FloatingActionButton) findViewById(R.id.product_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +96,22 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
                 redirectToEditProduct(map);
             }
         });
+
+        mySwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        mySwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        loadData();
+                    }
+                }
+        );
+    }
+
+    private void loadData() {
+        productListTask = new ProductListTask(session.getToken(), listId);
+        productListTask.setListener(this);
+        productListTask.execute();
     }
 
     public void redirectToEditProduct(HashMap<String, String> map) {
@@ -121,11 +137,15 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
             case R.id.action_logout:
                 session.logoutUser();
                 Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                Toast toast = Toast.makeText(getApplicationContext(), "Logout...", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), R.string.action_logout, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.BOTTOM, 10, 0);
                 toast.show();
                 startActivity(i);
                 finish();
+            case R.id.menu_refresh:
+                mySwipeRefreshLayout.setRefreshing(true);
+                loadData();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -155,6 +175,7 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
         }
         simpleAdapter.notifyDataSetChanged();
         setTitle(listName + " | Total : $ " + total);
+        mySwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

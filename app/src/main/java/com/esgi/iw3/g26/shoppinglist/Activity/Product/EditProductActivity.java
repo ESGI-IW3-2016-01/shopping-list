@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esgi.iw3.g26.shoppinglist.AsyncTask.ProductTask.ProductEditTask;
@@ -94,7 +92,7 @@ public class EditProductActivity extends AppCompatActivity implements IHttpReque
 
     @Override
     public void onSuccess(JSONObject object) {
-        Toast toast = Toast.makeText(getApplicationContext(), "Edit successful", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(), R.string.toast_edit_success, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.BOTTOM, 10, 0);
         toast.show();
         this.redirectToShoppingListActivity();

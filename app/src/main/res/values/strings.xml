@@ -29,6 +29,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <!-- Activity Titles -->
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_subscribe">New account</string>
     <string name="title_activity_login">Sign In</string>
@@ -38,4 +39,15 @@
     <string name="title_activity_editList">Edit Shopping list</string>
     <string name="title_activity_createProduct">Create product</string>
     <string name="title_activity_editProduct">Edit product</string>
+    <!-- Toast Messages -->
+    <string name="toast_no_products">Empty shopping list</string>
+    <string name="toast_no_lists">No shopping list yet</string>
+    <string name="toast_edit_success">Edited with success</string>
+    <string name="toast_edit_error">Error during edit</string>
+    <string name="toast_create_success">Created</string>
+    <string name="toast_create_error">Error during creation</string>
+    <string name="toast_login">Logged in</string>
+    <string name="toast_logout">Logging out</string>
+    <!-- Menu -->
+    <string name="menu_refresh">Refresh</string>
 </resources>

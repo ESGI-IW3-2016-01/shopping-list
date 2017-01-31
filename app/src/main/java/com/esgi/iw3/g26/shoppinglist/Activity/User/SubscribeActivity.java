@@ -93,7 +93,6 @@ public class SubscribeActivity extends AppCompatActivity implements IHttpRequest
     @Override
     public void onApiError(JSONObject object) {
         Log.d("activity:lists:api", object.optString("msg"));
-
         CharSequence text = object.optString("msg");
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, 3);

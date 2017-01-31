@@ -3,6 +3,7 @@ package com.esgi.iw3.g26.shoppinglist.Activity.ShoppingList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -35,12 +36,18 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
 
     private UserSession session;
     private ListView listView;
+    private SwipeRefreshLayout mySwipeRefreshLayout;
     private List<HashMap<String, String>> shoppinglistList = new ArrayList<>();
     private SimpleAdapter simpleAdapter;
 
     @Override
     protected void onResume() {
         super.onResume();
+        loadData();
+    }
+
+    private void loadData() {
+        Log.d("test", "LOAD DATA");
         ShoppingListListTask listListTask = new ShoppingListListTask(session.getToken());
         listListTask.setListener(this);
         listListTask.execute();
@@ -81,6 +88,16 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
             }
         });
 
+        mySwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        mySwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        loadData();
+                    }
+                }
+        );
+
         simpleAdapter = new SimpleAdapter(this,
                 shoppinglistList,
                 android.R.layout.simple_list_item_2,
@@ -103,7 +120,7 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
             case R.id.action_logout:
                 session.logoutUser();
                 Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                Toast toast = Toast.makeText(getApplicationContext(), "Logout...", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), R.string.toast_logout, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.BOTTOM, 0, 100);
                 toast.show();
                 startActivity(i);
@@ -138,7 +155,7 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
         try {
             JSONArray array = object.getJSONArray("result");
             if (array.length() <= 0) {
-                Toast toast = Toast.makeText(getApplicationContext(), "No Shopping List yet !", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), R.string.toast_no_lists, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.BOTTOM, 0, 0);
                 toast.show();
             } else {
@@ -155,6 +172,7 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
             toast.show();
         }
         simpleAdapter.notifyDataSetChanged();
+        mySwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

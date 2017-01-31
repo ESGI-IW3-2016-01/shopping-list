@@ -55,7 +55,6 @@ public class CreateListActivity extends AppCompatActivity implements IHttpReques
     public void onSuccess(JSONObject object) {
         Log.i("activity:list:create", object.toString());
         // Redirect to Shopping list Listing after creation
-        // TODO : toast ?
         Intent i = new Intent(getApplicationContext(), ListsActivity.class);
         startActivity(i);
     }
