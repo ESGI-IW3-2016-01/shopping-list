@@ -37,13 +37,13 @@ public class SubscribeActivity extends AppCompatActivity implements IHttpRequest
         setContentView(R.layout.activity_subscribe);
         this.session = new UserSession(getApplicationContext());
 
-//        subscribeButton = (Button) findViewById(R.id.email_subscribe_in_button);
-//        subscribeButton.@ckListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                attemptConnect();
-//            }
-//        });
+        subscribeButton = (Button) findViewById(R.id.email_subscribe_in_button);
+        subscribeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attemptConnect();
+            }
+        });
     }
 
     private void attemptConnect() {
