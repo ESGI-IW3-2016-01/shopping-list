@@ -92,7 +92,7 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
         CharSequence text = object.optString("msg");
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM, 0, 0);
+        toast.setGravity(Gravity.BOTTOM, 0, 100);
         toast.show();
     }
 

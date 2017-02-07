@@ -116,7 +116,8 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
 
     public void redirectToEditProduct(HashMap<String, String> map) {
         Intent i = new Intent(getApplicationContext(), EditProductActivity.class);
-        i.putExtra(Product.PRODUCT_ID_KEY, map.get(Product.PRODUCT_ID_KEY));
+        i.putExtra(ShoppingList.SHOPPING_LIST_ID_KEY,listId);
+        i.putExtra("PRODUCT_ID", map.get(Product.PRODUCT_ID_KEY));
         i.putExtra(Product.PRODUCT_NAME_KEY, map.get(Product.PRODUCT_NAME_KEY));
         i.putExtra(Product.PRODUCT_QUANTITY_KEY, map.get(Product.PRODUCT_QUANTITY_KEY));
         i.putExtra(Product.PRODUCT_PRICE_KEY, map.get(Product.PRODUCT_PRICE_KEY));
@@ -188,7 +189,7 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
         CharSequence text = object.optString("msg");
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM, 0, 0);
+        toast.setGravity(Gravity.BOTTOM, 0, 100);
         toast.show();
     }
 }

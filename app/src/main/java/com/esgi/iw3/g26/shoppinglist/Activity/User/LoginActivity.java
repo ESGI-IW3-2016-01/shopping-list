@@ -301,7 +301,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Log.d("activity:login:api", object.optString("msg"));
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, 3);
-        toast.setGravity(Gravity.BOTTOM, 0, 0);
+        toast.setGravity(Gravity.BOTTOM, 0, 100);
         toast.show();
     }
 

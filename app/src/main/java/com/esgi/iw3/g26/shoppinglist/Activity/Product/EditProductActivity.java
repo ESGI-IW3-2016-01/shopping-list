@@ -41,7 +41,7 @@ public class EditProductActivity extends AppCompatActivity implements IHttpReque
         session = new UserSession(getApplicationContext());
 
         Intent intent = getIntent();
-        productId = intent.getStringExtra(Product.PRODUCT_ID_KEY);
+        productId = intent.getStringExtra("PRODUCT_ID");
         productName = intent.getStringExtra(Product.PRODUCT_NAME_KEY);
         productPrice = intent.getStringExtra(Product.PRODUCT_PRICE_KEY);
         productQuantity = intent.getStringExtra(Product.PRODUCT_QUANTITY_KEY);
@@ -107,7 +107,7 @@ public class EditProductActivity extends AppCompatActivity implements IHttpReque
         CharSequence text = object.optString("msg");
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM, 0, 0);
+        toast.setGravity(Gravity.BOTTOM, 0, 100);
         toast.show();
     }
 

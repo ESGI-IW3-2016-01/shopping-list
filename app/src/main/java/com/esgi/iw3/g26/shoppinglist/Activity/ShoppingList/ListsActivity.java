@@ -47,7 +47,6 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
     }
 
     private void loadData() {
-        Log.d("test", "LOAD DATA");
         ShoppingListListTask listListTask = new ShoppingListListTask(session.getToken());
         listListTask.setListener(this);
         listListTask.execute();
@@ -156,7 +155,7 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
             JSONArray array = object.getJSONArray("result");
             if (array.length() <= 0) {
                 Toast toast = Toast.makeText(getApplicationContext(), R.string.toast_no_lists, Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setGravity(Gravity.BOTTOM, 0, 100);
                 toast.show();
             } else {
                 for (int i = 0; i < array.length(); i++) {
@@ -168,7 +167,7 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
             }
         } catch (JSONException e) {
             Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.BOTTOM, 0, 0);
+            toast.setGravity(Gravity.BOTTOM, 0, 100);
             toast.show();
         }
         simpleAdapter.notifyDataSetChanged();
