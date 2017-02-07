@@ -42,7 +42,7 @@ public class EditProductActivity extends AppCompatActivity implements IHttpReque
 
         Intent intent = getIntent();
         productId = intent.getStringExtra("PRODUCT_ID");
-        productName = intent.getStringExtra(Product.PRODUCT_NAME_KEY);
+        productName = intent.getStringExtra("PRODUCT_NAME");
         productPrice = intent.getStringExtra(Product.PRODUCT_PRICE_KEY);
         productQuantity = intent.getStringExtra(Product.PRODUCT_QUANTITY_KEY);
 

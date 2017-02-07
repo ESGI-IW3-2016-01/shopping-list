@@ -108,6 +108,16 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
         );
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fromIntent = getIntent();
+        listName = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_NAME_KEY);
+        listDate = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_DATE_KEY);
+        listId = fromIntent.getStringExtra(ShoppingList.SHOPPING_LIST_ID_KEY);
+        this.loadData();
+    }
+
     private void loadData() {
         productListTask = new ProductListTask(session.getToken(), listId);
         productListTask.setListener(this);
@@ -117,8 +127,10 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
     public void redirectToEditProduct(HashMap<String, String> map) {
         Intent i = new Intent(getApplicationContext(), EditProductActivity.class);
         i.putExtra(ShoppingList.SHOPPING_LIST_ID_KEY,listId);
+        i.putExtra(ShoppingList.SHOPPING_LIST_NAME_KEY, listName);
+        i.putExtra(ShoppingList.SHOPPING_LIST_DATE_KEY, listDate);
         i.putExtra("PRODUCT_ID", map.get(Product.PRODUCT_ID_KEY));
-        i.putExtra(Product.PRODUCT_NAME_KEY, map.get(Product.PRODUCT_NAME_KEY));
+        i.putExtra("PRODUCT_NAME", map.get(Product.PRODUCT_NAME_KEY));
         i.putExtra(Product.PRODUCT_QUANTITY_KEY, map.get(Product.PRODUCT_QUANTITY_KEY));
         i.putExtra(Product.PRODUCT_PRICE_KEY, map.get(Product.PRODUCT_PRICE_KEY));
         startActivity(i);
