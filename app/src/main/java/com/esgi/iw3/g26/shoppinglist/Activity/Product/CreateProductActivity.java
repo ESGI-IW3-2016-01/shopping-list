@@ -100,5 +100,6 @@ public class CreateProductActivity extends Activity implements IHttpRequestListe
         Intent i = new Intent(getApplicationContext(), ListActivity.class);
         i.putExtras(getIntent().getExtras());
         startActivity(i);
+        finish();
     }
 }
