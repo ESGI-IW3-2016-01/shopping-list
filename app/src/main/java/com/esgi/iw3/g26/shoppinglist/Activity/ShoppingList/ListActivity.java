@@ -124,7 +124,7 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
         productListTask.execute();
     }
 
-    public void redirectToEditProduct(HashMap<String, String> map) {
+    private void redirectToEditProduct(HashMap<String, String> map) {
         Intent i = new Intent(getApplicationContext(), EditProductActivity.class);
         i.putExtra(ShoppingList.SHOPPING_LIST_ID_KEY,listId);
         i.putExtra(ShoppingList.SHOPPING_LIST_NAME_KEY, listName);
@@ -134,6 +134,12 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
         i.putExtra(Product.PRODUCT_QUANTITY_KEY, map.get(Product.PRODUCT_QUANTITY_KEY));
         i.putExtra(Product.PRODUCT_PRICE_KEY, map.get(Product.PRODUCT_PRICE_KEY));
         startActivity(i);
+    }
+
+    private void redirectToShoppingList() {
+        Intent i = new Intent(getApplicationContext(), ListsActivity.class);
+        startActivity(i);
+        finish();
     }
 
     @Override
@@ -158,6 +164,9 @@ public class ListActivity extends AppCompatActivity implements IHttpRequestListe
             case R.id.menu_refresh:
                 mySwipeRefreshLayout.setRefreshing(true);
                 loadData();
+                return true;
+            case R.id.menu_list:
+                this.redirectToShoppingList();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

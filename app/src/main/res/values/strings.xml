@@ -50,4 +50,5 @@
     <string name="toast_logout">Logging out</string>
     <!-- Menu -->
     <string name="menu_refresh">Refresh</string>
+    <string name="menu_list">list</string>
 </resources>

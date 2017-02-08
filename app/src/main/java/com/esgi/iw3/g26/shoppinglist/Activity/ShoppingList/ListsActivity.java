@@ -109,6 +109,8 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_button, menu);
+        MenuItem item = menu.findItem(R.id.menu_list);
+        item.setVisible(false);
         return true;
     }
 
@@ -124,6 +126,13 @@ public class ListsActivity extends AppCompatActivity implements IHttpRequestList
                 toast.show();
                 startActivity(i);
                 finish();
+            case R.id.menu_refresh:
+                mySwipeRefreshLayout.setRefreshing(true);
+                loadData();
+                mySwipeRefreshLayout.setRefreshing(false);
+                return true;
+            case R.id.menu_list:
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
